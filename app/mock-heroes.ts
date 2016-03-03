@@ -1,4 +1,6 @@
 import { Hero } from './hero';
+import {OrganizationUnit} from './OrganizationUnit'
+import {Initiative} from './initiative';
 
 export var HEROES: Hero[] = [
 	{"id": 11, "name": "Mr. Nice"},
@@ -13,13 +15,42 @@ export var HEROES: Hero[] = [
 	{"id": 20, "name": "Tornado"}
 ];
 
+
+
+export enum Categories {
+    techniques, tools, platforms, frameworks
+};
+export enum Embracement {
+    assess, trial, adopt, hold
+}
+export enum Areas {
+    techniques, tools, platforms, languagesAndFrameworks
+}
 export var ORG_UNITS: OrganizationUnit[] = [
     {"id": 1, "name": "Java"},
-    {"id": 1, "name": ".NET"}
+    {"id": 2, "name": ".NET"}
 ];
 
-/*
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/
+export var INITIATIVES_TECH: Initiative[] = [
+            new Initiative(1, "tool1", "Test descr3", Embracement.adopt, true),
+                    new Initiative(2, "tool2", "Test descr4", Embracement.assess, false)
+
+];
+export var INITIATIVES_TOOL: Initiative[] = [
+    new Initiative(1, "platf", "Test descr3", Embracement.hold, true),
+                        new Initiative(2, "platf", "Test descr4", Embracement.assess, false)
+
+];
+export var INITIATIVES_PLATF: Initiative[] = [
+    new Initiative(1, "javascript", "Test descr3", Embracement.adopt, true),
+                    new Initiative(2, "css", "Test descr4", Embracement.hold, false)
+];
+export var INITIATIVES_LAN: Initiative[] = [
+    new Initiative(1, "Test1", "Test descr1", Embracement.adopt, true),
+    new Initiative(2, "Test2", "Test descr2", Embracement.assess, false),
+];
+
+export var INITIATIVES: Initiative[] = [
+    new Initiative(1, "Test1", "Test descr1", Embracement.adopt, true),
+    new Initiative(2, "Test2", "Test descr2", Embracement.assess, false),
+];

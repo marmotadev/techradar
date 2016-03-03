@@ -1,0 +1,50 @@
+<div *ngIf="unit">
+    <h2>{{unit.name}} details!</h2>
+   <!-- <div>
+        <label>id: </label>{{unit.id}}
+    </div>
+    <div>
+        <label>name: </label>
+        <input [(ngModel)]="unit.name" placeholder="name"/>
+    </div>
+    -->
+    <button (click)="goBack()">Back</button>
+
+<div class="radar-quadrant-navigation" id="radar">
+    <ul class="radar-quadrant-navigation__radar-quadrants">
+        <li class="radar-quadrant-navigation__quadrant">
+            <a class="techniques" [class.selected]="isCategorySelected2('techniques')" (click)="openCategory(unit.id,'techniques')"
+                                                           nav-entry="techniques">Techniques</a></li>
+        <li class="radar-quadrant-navigation__quadrant"><a class="tools" [class.selected]="isCategorySelected2('tools')" (click)="openCategory(unit.id,'tools')" nav-entry="tools">Tools</a>
+        </li>
+        <li class="radar-quadrant-navigation__quadrant"><a class="platforms" [class.selected]="isCategorySelected2('platforms')" (click)="openCategory(unit.id,'platforms')"
+                                                           nav-entry="platforms">Platforms</a></li>
+        <li class="radar-quadrant-navigation__quadrant"><a class="languages" [class.selected]="isCategorySelected2('frameworks')"
+                                                           (click)="openCategory(unit.id,'frameworks')"
+                                                           nav-entry="languages-and-frameworks">Languages &amp;<br>Frameworks</a>
+        </li>
+    </ul>
+</div>
+    <div *ngIf="category">
+        <h2>Area: {{category}}</h2>
+        <ul *ngFor="#initiative of initiatives">
+            <li>Well ... {{initiative.name}}</li>
+        </ul>
+
+    <div *ngIf="showAddNew">
+
+
+        <!--<div *ngFor="#cat of-->
+        <item-form [area]="category"></item-form>
+
+    </div>
+        <button class="btn btn-default" (click)="showAddNewForm()">Add new</button>
+    </div>
+</div>
+
+
+<!-- 
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+-->

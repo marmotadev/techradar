@@ -1,5 +1,6 @@
 import {Injectable} from 'angular2/core';
 import {HEROES}     from './mock-heroes';
+import {ORG_UNITS} from './mock-heroes';
 
 @Injectable()
 export class HeroService {
@@ -9,8 +10,13 @@ export class HeroService {
   getOrganizationUnits() {
     return Promise.resolve(ORG_UNITS);
   }
+  getUnit(id: number) {
+    return Promise.resolve(ORG_UNITS).then(
+          units => units.filter(unit => unit.id === id)[0]
+        );
+  }
 
-	getHero(id: number) {
+  getHero(id: number) {
     return Promise.resolve(HEROES).then(
       heroes => heroes.filter(hero => hero.id === id)[0]
     );

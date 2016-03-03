@@ -1,6 +1,7 @@
 import {Component, OnInit} from 'angular2/core';
 import {Router} from 'angular2/router';
 import {Hero} from './hero';
+import {OrganizationUnit} from './OrganizationUnit';
 import {HeroService} from './hero.service';
 
 @Component({
@@ -10,18 +11,25 @@ import {HeroService} from './hero.service';
 })
 export class DashboardComponent implements OnInit {
   public heroes: Hero[] = [];
+  public units: OrganizationUnit[] = [];
 
   constructor(private _heroService: HeroService, private _router: Router) { }
 
   ngOnInit() {
-    this._heroService.getHeroes().then(heroes => this.heroes = heroes.slice(1,5));
+    this._heroService.getOrganizationUnits().then(units => this.units = units);
+    this._heroService.getHeroes().then(units => this.heroes = units);
   }
 
   gotoDetail(hero: Hero) {
     let link = ['HeroDetail', { id: hero.id }];
     this._router.navigate(link);
   }
+  gotoOrganizationUnit(unit: OrganizationUnit) {
+      let link = ['UnitDetail', { id: unit.id }];
+      this._router.navigate(link);
+    }
 }
+
 
 
 /*

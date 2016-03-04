@@ -8,22 +8,28 @@ import {Areas} from './mock-heroes';
 
 @Component({
   selector: 'item-form',
-  templateUrl: 'app/item-form-component.html',
-  inputs: ['area']
+  templateUrl: 'app/item-form-component.html'
 })
 
 export class ItemFormComponent {
-  powers = ['Really Smart', 'Super Flexible',
-            'Super Hot', 'Weather Changer'];
-//  model = new Initiative(id:18, name:'Dr IQ', description: 'well', isNew: true};
-  model = new Initiative(0, "", "", Embracement.adopt, true);
+
+    /* for template referencing */
+    public areasEnum = Areas;
+    public embracementEnum = Embracement;
+
+  // model = new Initiative(id:18, name:'Dr IQ', description: 'well', isNew: true};
+  model = this.buildModel();
   submitted = false;
   @Input() area: Areas;
   @Output("onCancel") onClose = new EventEmitter<string>();
+  @Output() onAdd = new EventEmitter();
+
   constructor(private _radarService: RadarService) {
 //      private _routeParams: RouteParams, private _router: Router) {
   }
-
+   buildModel(): Initiative {
+      return new Initiative(0, "", "", Embracement.assess, true);
+    }
 
   onSubmit() { this.submitted = true; }
   // TODO: Remove this when we're done
@@ -31,6 +37,10 @@ export class ItemFormComponent {
 
   addInitiative() {
     this._radarService.addInitiative(this.model, this.area);
+    this.onAdd.emit([this.model, this.area]);
+    this.closeForm();
+    this.model = this.buildModel();
+
   }
   closeForm() {
     console.log("item form: close asked, will emit event")

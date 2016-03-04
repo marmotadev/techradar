@@ -15,10 +15,10 @@
     <div class="form-group">
       <label for="embracement">Embracement</label>
       <select [(ngModel)]="model.embracement" class="form-control">
-        <option value="assess">Assess</option>
-        <option value="trial">Trial</option>
-        <option value="adopt">Adopt</option>
-        <option value="hold">Hold</option>
+        <option [value]="embracementEnum.assess">Assess</option>
+        <option [value]="embracementEnum.trial">Trial</option>
+        <option [value]="embracementEnum.adopt">Adopt</option>
+        <option [value]="embracementEnum.hold">Hold</option>
       </select>
     </div>
     <div class="form-group">

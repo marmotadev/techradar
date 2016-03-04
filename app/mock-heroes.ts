@@ -26,6 +26,17 @@ export enum Embracement {
 export enum Areas {
     techniques, tools, platforms, languagesAndFrameworks
 }
+export function catToArea(cat: string): Areas {
+                    console.log("Cat ", cat);
+                    if (cat == "techniques")
+                        return Areas.techniques;
+                    if (cat == "tools")
+                            return Areas.tools;
+                    if (cat == "platforms")
+                                return Areas.platforms;
+                    if (cat == "frameworks")
+                                    return Areas.languagesAndFrameworks;
+                                    }
 export var ORG_UNITS: OrganizationUnit[] = [
     {"id": 1, "name": "Java"},
     {"id": 2, "name": ".NET"}

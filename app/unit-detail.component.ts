@@ -21,10 +21,13 @@ import {Areas} from './mock-heroes';
 //  viewProviders: [DragulaService]
 })
 export class UnitDetailComponent implements OnInit {
+  public areasEnum = Areas;
   unit: OrganizationUnit;
   category: string;
   initiatives: Initiative[];
   showAddNew: boolean;
+  selectedArea: Areas;
+
 
   constructor(private _heroService: HeroService, private _radarService: RadarService,
     private _routeParams: RouteParams, private _router: Router) {
@@ -33,29 +36,26 @@ export class UnitDetailComponent implements OnInit {
     this.showAddNew = true;
   }
   catToArea(cat: string): Areas {
-    console.log("Cat ", cat);
-    if (cat == "techniques")
-        return Areas.techniques;
-    if (cat == "tools")
-            return Areas.tools;
-    if (cat == "platforms")
-                return Areas.platforms;
-    if (cat == "frameworks")
-                    return Areas.languagesAndFrameworks;
-//    if (cat == "")
+    return Areas[cat];
+  }
+  reloadInitiatives(category: string) {
+    console.log("Will reload initiatives");
+    this._radarService.getInitiatives(this.catToArea(category)).then(initiatives => {this.initiatives = initiatives});
   }
   ngOnInit() {
     let id = +this._routeParams.get('id');
     this.category = this._routeParams.get('category');
+    this.selectedArea = Areas[this.category];
+    console.log("Now current:", this.selectedArea);
 
     if (this.category != 'undefined' && this.category != null)
-        this._radarService.getInitiatives(this.catToArea(this.category)).then(initiatives => {this.initiatives = initiatives});
+        this.reloadInitiatives(this.category);
     this._heroService.getUnit(id).then(hero => this.unit = hero);
 
   }
-  openCategory(id:number, category: string)
+  openCategory(id:number, areaStr: string)
   {
-    this._router.navigate(['ItemsInCategoryDetail', { id: this.unit.id, category: category }]);
+    this._router.navigate(['ItemsInCategoryDetail', { id: this.unit.id, category: areaStr }]);
   }
   isCategorySelected(): boolean {
    //console.log("Category selected: " + this.category);
@@ -64,8 +64,8 @@ export class UnitDetailComponent implements OnInit {
     else
         return false;
   }
-  isCategorySelected2(c: string): boolean {
-     return !this.isCategorySelected() || this.isCategorySelected() && this.category == c;
+  isCategorySelected2(c: Areas): boolean {
+     return !this.isCategorySelected() || this.isCategorySelected() && this.selectedArea == c;
     }
   goBack() {
     window.history.back();
@@ -73,6 +73,10 @@ export class UnitDetailComponent implements OnInit {
   closeAddNewForm() {
     console.log("Parent component closes form");
     this.showAddNew = false;
+  }
+  initiativeAdded(event) {
+    console.log("Got event:", event);
+    this.reloadInitiatives(this.category);
   }
 }
 

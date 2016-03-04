@@ -13,14 +13,14 @@
 <div class="radar-quadrant-navigation" id="radar">
     <ul class="radar-quadrant-navigation__radar-quadrants">
         <li class="radar-quadrant-navigation__quadrant">
-            <a class="techniques" [class.selected]="isCategorySelected2('techniques')" (click)="openCategory(unit.id,'techniques')"
+            <a class="techniques" [class.selected]="isCategorySelected2(areasEnum.techniques)" (click)="openCategory(unit.id, areasEnum[areasEnum.techniques])"
                                                            nav-entry="techniques">Techniques</a></li>
-        <li class="radar-quadrant-navigation__quadrant"><a class="tools" [class.selected]="isCategorySelected2('tools')" (click)="openCategory(unit.id,'tools')" nav-entry="tools">Tools</a>
+        <li class="radar-quadrant-navigation__quadrant"><a class="tools" [class.selected]="isCategorySelected2(areasEnum.tools)" (click)="openCategory(unit.id, areasEnum[areasEnum.tools])" nav-entry="tools">Tools</a>
         </li>
-        <li class="radar-quadrant-navigation__quadrant"><a class="platforms" [class.selected]="isCategorySelected2('platforms')" (click)="openCategory(unit.id,'platforms')"
+        <li class="radar-quadrant-navigation__quadrant"><a class="platforms" [class.selected]="isCategorySelected2(areasEnum.platforms)" (click)="openCategory(unit.id, areasEnum[areasEnum.platforms])"
                                                            nav-entry="platforms">Platforms</a></li>
-        <li class="radar-quadrant-navigation__quadrant"><a class="languages" [class.selected]="isCategorySelected2('frameworks')"
-                                                           (click)="openCategory(unit.id,'frameworks')"
+        <li class="radar-quadrant-navigation__quadrant"><a class="languages" [class.selected]="isCategorySelected2(areasEnum.languagesAndFrameworks)"
+                                                           (click)="openCategory(unit.id,areasEnum[areasEnum.languagesAndFrameworks])"
                                                            nav-entry="languages-and-frameworks">Languages &amp;<br>Frameworks</a>
         </li>
     </ul>
@@ -35,7 +35,7 @@
 
 
         <!--<div *ngFor="#cat of-->
-        <item-form (onCancel)="closeAddNewForm()" [area]="category"></item-form>
+        <item-form (onCancel)="closeAddNewForm()" (onAdd)="initiativeAdded($event)" [area]="selectedArea"></item-form>
 
     </div>
         <div *ngIf="!showAddNew">

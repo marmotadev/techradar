@@ -1,4 +1,4 @@
-import {Component, OnInit} from 'angular2/core';
+import {Component, OnInit, Input, Output} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 import {Router} from 'angular2/router';
@@ -15,16 +15,16 @@ import {Areas} from './mock-heroes';
   selector: 'unit-detail',
   templateUrl: 'app/unit-detail.component.html',
   styleUrls: ['app/unit-detail.component.css'],
-  inputs: ['unit'],
-  directives: [ItemFormComponent],
+  inputs: ['unit', 'showAddNew'],
+  directives: [ItemFormComponent]
 //    directives: [ItemFormComponent, Dragula],
 //  viewProviders: [DragulaService]
 })
 export class UnitDetailComponent implements OnInit {
-  public unit: OrganizationUnit;
-  public category: string;
-  public initiatives: Initiative[];
-  public showAddNew: boolean;
+  unit: OrganizationUnit;
+  category: string;
+  initiatives: Initiative[];
+  showAddNew: boolean;
 
   constructor(private _heroService: HeroService, private _radarService: RadarService,
     private _routeParams: RouteParams, private _router: Router) {
@@ -69,6 +69,10 @@ export class UnitDetailComponent implements OnInit {
     }
   goBack() {
     window.history.back();
+  }
+  closeAddNewForm() {
+    console.log("Parent component closes form");
+    this.showAddNew = false;
   }
 }
 

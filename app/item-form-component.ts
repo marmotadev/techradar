@@ -1,4 +1,4 @@
-import {Component, Input} from 'angular2/core';
+import {Component, Input, Output, EventEmitter} from 'angular2/core';
 import {NgForm} from 'angular2/common';
 import {Hero}   from './hero';
 import {Initiative} from './initiative';
@@ -19,7 +19,7 @@ export class ItemFormComponent {
   model = new Initiative(0, "", "", Embracement.adopt, true);
   submitted = false;
   @Input() area: Areas;
-
+  @Output("onCancel") onClose = new EventEmitter<string>();
   constructor(private _radarService: RadarService) {
 //      private _routeParams: RouteParams, private _router: Router) {
   }
@@ -31,5 +31,9 @@ export class ItemFormComponent {
 
   addInitiative() {
     this._radarService.addInitiative(this.model, this.area);
+  }
+  closeForm() {
+    console.log("item form: close asked, will emit event")
+    this.onClose.emit("nu");
   }
 }

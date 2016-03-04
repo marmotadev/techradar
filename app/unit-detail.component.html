@@ -35,10 +35,12 @@
 
 
         <!--<div *ngFor="#cat of-->
-        <item-form [area]="category"></item-form>
+        <item-form (onCancel)="closeAddNewForm()" [area]="category"></item-form>
 
     </div>
-        <button class="btn btn-default" (click)="showAddNewForm()">Add new</button>
+        <div *ngIf="!showAddNew">
+            <button class="btn btn-default" (click)="showAddNewForm()">Add new</button>
+        </div>
     </div>
 </div>
 

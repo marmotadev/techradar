@@ -9,7 +9,7 @@ export class RadarService {
   public addInitiative(i: Initiative, area: Areas) {
     console.log("Saving initiative", i, area);
     if (area == Areas.techniques)
-            INITIATIVES_TECH = INITIATIVES_TECH.push(i);
+            INITIATIVES_TECH.push(i);
     console.log("New:", INITIATIVES_TECH);
   }
   public getInitiatives(area: Areas) {

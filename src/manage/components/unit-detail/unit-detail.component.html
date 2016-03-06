@@ -1,0 +1,80 @@
+<div *ngIf="unit">
+  <h2>{{unit.name}} unit's technology radar!</h2>
+  <!-- <div>
+       <label>id: </label>{{unit.id}}
+   </div>
+   <div>
+       <label>name: </label>
+       <input [(ngModel)]="unit.name" placeholder="name"/>
+   </div>
+   -->
+  <!--<button (click)="goBack()">Back</button>-->
+
+  <div class="radar-quadrant-navigation" id="radar">
+    <ul class="radar-quadrant-navigation__radar-quadrants">
+      <li class="radar-quadrant-navigation__quadrant">
+        <a class="techniques" [class.selected]="isCategorySelected2(areasEnum.techniques)"
+           (click)="openCategory(unit.id, areasEnum[areasEnum.techniques])"
+           nav-entry="techniques">Techniques</a></li>
+      <li class="radar-quadrant-navigation__quadrant"><a class="tools"
+                                                         [class.selected]="isCategorySelected2(areasEnum.tools)"
+                                                         (click)="openCategory(unit.id, areasEnum[areasEnum.tools])"
+                                                         nav-entry="tools">Tools</a>
+      </li>
+      <li class="radar-quadrant-navigation__quadrant"><a class="platforms"
+                                                         [class.selected]="isCategorySelected2(areasEnum.platforms)"
+                                                         (click)="openCategory(unit.id, areasEnum[areasEnum.platforms])"
+                                                         nav-entry="platforms">Platforms</a></li>
+      <li class="radar-quadrant-navigation__quadrant"><a class="languages"
+                                                         [class.selected]="isCategorySelected2(areasEnum.languagesAndFrameworks)"
+                                                         (click)="openCategory(unit.id,areasEnum[areasEnum.languagesAndFrameworks])"
+                                                         nav-entry="languages-and-frameworks">Languages &amp;<br>Frameworks</a>
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="category">
+    <h2>Area: {{category}}</h2>
+    <!--<ul *ngFor="#initiative of initiatives">-->
+    <!--<li>Well ... {{initiative.name}}</li>-->
+    <!--</ul>-->
+
+
+    <div *ngIf="showAddNew">
+
+
+      <!--<div *ngFor="#cat of-->
+      <item-form (onCancel)="closeAddNewForm()" (onAdd)="initiativeAdded($event)" [area]="selectedArea"></item-form>
+
+    </div>
+    <div *ngIf="!showAddNew">
+      <button class="btn btn-default" (click)="showAddNewForm()">Add new</button>
+    </div>
+    <div>
+      <div class='wrapper' id="dragulaWrapper">
+        <div class='container' [attr.data-container-id]='"assess"' [dragula]='"embracements-bag"'>
+          <embracement  *ngFor="#initiative of filteredInitiatives(embracementEnum.assess)" [attr.data-embr-id]="initiative.id" [embracementId]="initiative.id">{{initiative.name}}
+            {{initiative.description}}
+          </embracement>
+
+        </div>
+        <div class='container' [attr.data-container-id]='"trial"' [dragula]='"embracements-bag"'>
+          <div  *ngFor="#initiative of filteredInitiatives(embracementEnum.trial)" [attr.data-embr-id]="initiative.id">{{initiative.name}}
+            {{initiative.description}}
+          </div>
+        </div>
+        <div class='container' [attr.data-container-id]='"adopt"' [dragula]='"embracements-bag"'>
+          <div *ngFor="#initiative of filteredInitiatives(embracementEnum.adopt)">{{initiative.name}}
+            {{initiative.description}}
+          </div>
+        </div>
+        <div class='container' [attr.data-container-id]='"hold"' [dragula]='"embracements-bag"'>
+          <div *ngFor="#initiative of filteredInitiatives(embracementEnum.hold)">{{initiative.name}}
+            {{initiative.description}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+

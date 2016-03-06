@@ -1,0 +1,36 @@
+<div class="container">
+  <h1>Add initiative</h1>
+  <form>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" required [(ngModel)]="model.name" >
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea [(ngModel)]="model.description" rows="4" cols="50" class="form-control">
+      </textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="embracement">Embracement</label>
+      <select [(ngModel)]="model.embracement" class="form-control">
+        <option [value]="embracementEnum.assess">Assess</option>
+        <option [value]="embracementEnum.trial">Trial</option>
+        <option [value]="embracementEnum.adopt">Adopt</option>
+        <option [value]="embracementEnum.hold">Hold</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <div class="btn-group" data-toggle="buttons">
+        <input type="checkbox" [(ngModel)]="model.nInitiative" >
+        <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+          Is it a new initiative?
+        </button>
+      </div>
+      </div>
+    <button type="submit" class="btn btn-default" (click)="addInitiative()">Add</button>
+    <button type="button" class="btn btn-default" (click)="closeForm()">cancel</button>
+  </form>
+
+</div>

@@ -17,9 +17,12 @@
     <script src="https://code.angularjs.org/2.0.0-beta.7/Rx.js"></script>
     <script src="https://code.angularjs.org/2.0.0-beta.7/angular2.dev.js"></script>
     <script src="https://code.angularjs.org/2.0.0-beta.7/router.dev.js"></script>
+    <!--<script src="/node_modules/ng2-dragula/bundles/ng2-dragula.js"></script>-->
     <script>
       System.config({
-
+        map:{
+          'dragula': 'node_modules/dragula'
+        },
         transpiler: 'typescript', 
         typescriptOptions: { emitDecoratorMetadata: true }, 
         packages: {

@@ -9,16 +9,16 @@ import {OrganizationUnit} from './OrganizationUnit';
 import {ItemFormComponent} from './item-form-component';
 import {Initiative} from './initiative';
 import {Areas} from './mock-heroes';
-//import {DragulaService,Dragula} from 'ng2-dragula/ng2-dragula';
+import {DragulaService, Dragula} from 'ng2-dragula/ng2-dragula';
 
 @Component({
   selector: 'unit-detail',
   templateUrl: 'app/unit-detail.component.html',
   styleUrls: ['app/unit-detail.component.css'],
   inputs: ['unit', 'showAddNew'],
-  directives: [ItemFormComponent]
-//    directives: [ItemFormComponent, Dragula],
-//  viewProviders: [DragulaService]
+//  directives: [ItemFormComponent],
+    directives: [ItemFormComponent, Dragula],
+  viewProviders: [DragulaService]
 })
 export class UnitDetailComponent implements OnInit {
   public areasEnum = Areas;

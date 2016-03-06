@@ -1,4 +1,4 @@
-import { Hero } from './hero';
+//import { Hero } from './hero';
 import {OrganizationUnit} from './OrganizationUnit'
 import {Initiative} from './initiative';
 
@@ -65,3 +65,4 @@ export var INITIATIVES: Initiative[] = [
     new Initiative(1, "Test1", "Test descr1", Embracement.adopt, true),
     new Initiative(2, "Test2", "Test descr2", Embracement.assess, false),
 ];
+export default Areas

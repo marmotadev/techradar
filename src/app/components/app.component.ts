@@ -6,6 +6,7 @@ import {ToolbarComponent} from './toolbar.component';
 import {HomeComponent} from '../../home/components/home.component';
 import {AboutComponent} from '../../about/components/about.component';
 import {ManageComponent} from '../../manage/components/manage.component';
+import {ViewRadarComponent} from '../../radar/view-radar.component';
 import {NameListService} from '../../shared/services/name-list.service';
 import {ManageService} from '../../shared/services/manage.service';
 import {RadarService} from '../../shared/services/radar.service';
@@ -22,6 +23,7 @@ import {RadarService} from '../../shared/services/radar.service';
 @RouteConfig([
   { path: '/',      name: 'Home',  component: HomeComponent  },
   { path: '/about', name: 'About', component: AboutComponent },
-  { path: '/manage/...', name: 'Manage', component: ManageComponent }
+  { path: '/manage/...', name: 'Manage', component: ManageComponent },
+  { path: '/radar', name: 'ViewRadar', component: ViewRadarComponent }
 ])
 export class AppComponent {}

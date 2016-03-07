@@ -116,7 +116,9 @@ export class UnitDetailComponent implements OnInit {
         e = 0;
         source = null;
         console.log('Shit got dropped:', args[0].getAttribute('data-embr-id'), target.getAttribute('data-container-id'));
-        // do something
+        var embracementId:string = target.getAttribute('data-container-id');
+        var embr: Embracement = Embracement[embracementId];
+        this._radarService.moveInitiative(args[0].getAttribute('data-embr-id'), embr);
       }
 
       private onOver(args) {

@@ -2,11 +2,15 @@ import {Injectable} from 'angular2/core';
 import {Initiative} from '../model/initiative';
 import {INITIATIVES_TECH, INITIATIVES_TOOL, INITIATIVES_PLATF, INITIATIVES_LAN} from './mock-heroes';
 import {Areas} from '../model/areas';
+import {Embracement} from '../model/embracement';
 //import catToArea from './mock-heroes';
 
 @Injectable()
 export class RadarService {
 
+  public moveInitiative(initiativeId: string, e: Embracement) {
+    console.log('Moving initiative',  initiativeId, ' to embracement level ', e);
+  }
   public addInitiative(i: Initiative, area: Areas) {
     console.log('RadarService: Saving initiative', i, area, typeof(area));
 

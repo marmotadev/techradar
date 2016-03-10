@@ -101,6 +101,7 @@ const SYSTEM_CONFIG_DEV = {
     [BOOTSTRAP_MODULE]: `${APP_BASE}${BOOTSTRAP_MODULE}`,
     'angular2/*': `${APP_BASE}angular2/*`,
     'rxjs/*': `${APP_BASE}rxjs/*`,
+    'bower_components/*': `${APP_BASE}bower_components/*`,
     'dragula': `${APP_BASE}node_modules/dragula/dist/dragula.min`,
     '*': `${APP_BASE}node_modules/*`
   },
@@ -116,6 +117,7 @@ export const SYSTEM_BUILDER_CONFIG = {
   defaultJSExtensions: true,
   paths: {
     [`${TMP_DIR}/*`]: `${TMP_DIR}/*`,
+    'bower_components/*': `${APP_BASE}bower_components/*`,
     'dragula': `node_modules/dragula/dist/dragula.min.js`,
     '*': 'node_modules/*'
   }

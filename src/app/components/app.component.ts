@@ -24,6 +24,6 @@ import {RadarService} from '../../shared/services/radar.service';
   { path: '/',      name: 'Home',  component: HomeComponent  },
   { path: '/about', name: 'About', component: AboutComponent },
   { path: '/manage/...', name: 'Manage', component: ManageComponent },
-  { path: '/radar', name: 'ViewRadar', component: ViewRadarComponent }
+  { path: '/radar', name: 'ViewRadar', component: ViewRadarComponent, useAsDefault: true }
 ])
 export class AppComponent {}

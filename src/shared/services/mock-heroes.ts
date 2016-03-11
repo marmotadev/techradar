@@ -30,7 +30,7 @@ export var INITIATIVES_TECH: Initiative[] = [
             new Initiative(3, 'tool3', 'Test descr5', Embracement.adopt, true),
             new Initiative(4, 'tool4', 'Test descr6', Embracement.trial, false),
             new Initiative(5, 'tool5', 'Test descr7', Embracement.hold, false),
-             new Initiative(6, 'tool8', 'Test descr3', Embracement.adopt, true),
+//             new Initiative(6, 'tool8', 'Test descr3', Embracement.adopt, true),
                         new Initiative(7, 'tool9', 'Test descr4', Embracement.assess, false),
 
 ];

@@ -18,7 +18,7 @@
     "gulp": "gulp",
     "karma": "karma",
     "karma.start": "karma start",
-    "postinstall": "bower install && typings install && gulp check.versions && npm prune",
+    "postinstall": "typings install && gulp check.versions && npm prune",
     "reinstall": "npm cache clean && rimraf typings/* && rimraf node_modules/* && npm install",
     "serve.coverage": "remap-istanbul -i coverage/coverage-final.json -o coverage -t html && npm run gulp -- serve.coverage",
     "serve.dev": "gulp serve.dev",
@@ -98,6 +98,7 @@
   },
   "dependencies": {
     "angular2": "^2.0.0-beta.7",
+    "d3": "^3.5.16",
     "dragula": "^3.6.8",
     "es6-module-loader": "^0.17.8",
     "es6-shim": "^0.33.3",
@@ -107,6 +108,7 @@
     "reflect-metadata": "0.1.2",
     "rxjs": "5.0.0-beta.2",
     "systemjs": "~0.19.18",
+    "techradar": "1.0.0",
     "zone.js": "0.5.15"
   }
 }

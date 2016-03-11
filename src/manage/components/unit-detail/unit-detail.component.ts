@@ -12,6 +12,7 @@ import {Areas} from '../../../shared/model/areas';
 import {Embracement} from '../../../shared/model/embracement';
 import {DragulaService, Dragula} from 'ng2-dragula/ng2-dragula';
 import {EmbracementComponent} from '../embracement.component';
+
 @Component({
   selector: 'unit-detail',
   templateUrl: '/manage/components/unit-detail/unit-detail.component.html',
@@ -35,9 +36,9 @@ export class UnitDetailComponent implements OnInit {
 
   constructor(private _heroService: ManageService, private _radarService: RadarService,
     private _routeParams: RouteParams, private _router: Router, private dragulaService: DragulaService) {
-    dragulaService.drag.subscribe((value) => {
-          console.log(`drag: ${value[0]}`);
-          this.onDrag(value.slice(1));
+    dragulaService.drag.subscribe((value1) => {
+          console.log(`drag: ${value1[0]}`);
+          this.onDrag(value1.slice(1));
         });
         dragulaService.drop.subscribe((value) => {
           console.log(`drop: ${value[0]}`);

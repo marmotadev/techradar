@@ -71,7 +71,10 @@ export const DEV_NPM_DEPENDENCIES: IDependency[] = normalizeDependencies([
   { src: 'rxjs/bundles/Rx.js', inject: 'libs' },
   { src: 'angular2/bundles/angular2.js', inject: 'libs' },
   { src: 'angular2/bundles/router.js', inject: 'libs' },
-  { src: 'angular2/bundles/http.js', inject: 'libs' }
+  { src: 'angular2/bundles/http.js', inject: 'libs' },
+  { src: 'jquery/dist/jquery.js', inject: 'libs' }
+//  { src: 'techradar/radar.js',inject: 'libs' },
+//  { src: 'protovis/protovis-d3.2.js',inject: 'libs' }
 ]);
 
 export const PROD_NPM_DEPENDENCIES: IDependency[] = normalizeDependencies([
@@ -102,7 +105,9 @@ const SYSTEM_CONFIG_DEV = {
     'angular2/*': `${APP_BASE}angular2/*`,
     'rxjs/*': `${APP_BASE}rxjs/*`,
     'bower_components/*': `${APP_BASE}bower_components/*`,
-    'dragula': `${APP_BASE}node_modules/dragula/dist/dragula.min`,
+    'dragula': `${APP_BASE}node_modules/dragula/dist/dragula.min.js`,
+    //'protovis': `${APP_BASE}node_modules/protovis/protovis-d3.2.js`,
+    '/src/*': `${APP_BASE}node_modules/*`,
     '*': `${APP_BASE}node_modules/*`
   },
   packages: {
@@ -119,6 +124,8 @@ export const SYSTEM_BUILDER_CONFIG = {
     [`${TMP_DIR}/*`]: `${TMP_DIR}/*`,
     'bower_components/*': `${APP_BASE}bower_components/*`,
     'dragula': `node_modules/dragula/dist/dragula.min.js`,
+    //'protovis': `${APP_BASE}node_modules/protovis/protovis-d3.2.js`,
+    //'src/*': `${APP_BASE}src/*`,
     '*': 'node_modules/*'
   }
 };

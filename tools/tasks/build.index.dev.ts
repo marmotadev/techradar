@@ -29,6 +29,9 @@ export = function buildIndexDev(gulp, plugins) {
 
   function mapPath(dep) {
     let envPath = dep.src;
+//    console.log('envpath', envPath);
+//    console.log('APP_SRC', APP_SRC);
+//    console.log('APP_DEST', APP_DEST);
     if (envPath.startsWith(APP_SRC)) {
       envPath = join(APP_DEST, dep.src.replace(APP_SRC, ''));
     }

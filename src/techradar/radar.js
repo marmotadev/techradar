@@ -1,4 +1,8 @@
-module.exports = function init(h,w,$) {
+module.exports = function init(h,w,$, radar_data) {
+//require('./lib/protovis-3.2/protovis-3.2.js');
+//require('protovis');
+//require('./lib/lodash.underscore.min.js');
+//require('lodash');
   $('#title').text(document.title);
 
  var radar = new pv.Panel()

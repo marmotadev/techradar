@@ -10,6 +10,7 @@ import {ManageService} from '../shared/services/manage.service';
 //import {UnitDetailComponent} from './unit-detail/unit-detail.component';
 //import {UnitListComponent} from './unit-list.component';
 import {RadarComponent} from './components/radar.component';
+import {RadarComponent2} from './components/radar2.component';
 
 
 @Component({
@@ -17,7 +18,7 @@ import {RadarComponent} from './components/radar.component';
   moduleId: module.id,
   templateUrl: './view-radar.component.html',
   styleUrls: ['./view-radar.component.css'],
-  directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, RadarComponent]
+  directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, RadarComponent,RadarComponent2]
 
 })
 //@RouteConfig([

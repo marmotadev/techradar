@@ -72,7 +72,8 @@ export const DEV_NPM_DEPENDENCIES: IDependency[] = normalizeDependencies([
   { src: 'angular2/bundles/angular2.js', inject: 'libs' },
   { src: 'angular2/bundles/router.js', inject: 'libs' },
   { src: 'angular2/bundles/http.js', inject: 'libs' },
-  { src: 'jquery/dist/jquery.js', inject: 'libs' }
+  { src: 'jquery/dist/jquery.js', inject: 'libs' },
+  { src: 'd3/d3.js', inject: 'libs' }
 //  { src: 'techradar/radar.js',inject: 'libs' },
 //  { src: 'protovis/protovis-d3.2.js',inject: 'libs' }
 ]);

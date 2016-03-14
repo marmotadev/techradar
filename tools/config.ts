@@ -73,7 +73,8 @@ export const DEV_NPM_DEPENDENCIES: IDependency[] = normalizeDependencies([
   { src: 'angular2/bundles/router.js', inject: 'libs' },
   { src: 'angular2/bundles/http.js', inject: 'libs' },
   { src: 'jquery/dist/jquery.js', inject: 'libs' },
-  { src: 'd3/d3.js', inject: 'libs' }
+  { src: 'd3/d3.js', inject: 'libs' },
+  { src: 'tooltipster/js/jquery.tooltipster.js', inject: 'libs' }
 //  { src: 'techradar/radar.js',inject: 'libs' },
 //  { src: 'protovis/protovis-d3.2.js',inject: 'libs' }
 ]);
@@ -87,9 +88,13 @@ export const PROD_NPM_DEPENDENCIES: IDependency[] = normalizeDependencies([
   { src: 'angular2/bundles/angular2-polyfills.min.js', inject: 'libs' }
 ]);
 
+console.log('base', APP_BASE);
 // Declare local files that needs to be injected
 export const APP_ASSETS: IDependency[] = [
-  { src: `${ASSETS_SRC}/main.css`, inject: true }
+  { src: `${ASSETS_SRC}/main.css`, inject: true },
+  { src: `node_modules/tooltipster/css/tooltipster.css`, inject: true},
+  { src: `node_modules/tooltipster/css/themes/tooltipster-punk.css`, inject: true}
+
 ];
 
 

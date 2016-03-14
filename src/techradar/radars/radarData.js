@@ -199,4 +199,4 @@ var radar_data2 = [
         ]
     }
 ];
-console.log('origdata', radar_data2);
+//console.log('origdata', radar_data2);

@@ -29,7 +29,7 @@ export class ViewRadarComponent implements OnInit {
   constructor(public nameListService: NameListService, private _heroService: ManageService, private _router: Router) {}
 
   ngOnInit() {
-    console.log('on init');
+//    console.log('on init');
   }
 }
 

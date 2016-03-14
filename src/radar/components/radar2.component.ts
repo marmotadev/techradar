@@ -19,51 +19,6 @@ import {Areas} from '../../shared/model/areas';
 import {Initiative} from '../../shared/model/initiative';
 //import * as d3 from 'd3/selection';
 declare var jQuery:JQueryStatic;
-//declare module 'd3';
-/*
-@Component({
-  selector:   'bar-graph',
-  lifecycle:  [ LifecycleEvent.onChange ],
-  properties: [ 'data' ]
-})
-class BarGraph {
-  data: Array<number>;
-  divs: any;
-  constructor(
-    @Inject(ElementRef) elementRef: ElementRef,
-    @Input('width') width: string,
-    @Input('height') height: string) {
-
-    var el:any    = elementRef.domElement;
-    var graph:any = d3.select(el);
-
-    this.divs = graph.
-      append('div').
-      attr({
-        'class': 'chart'
-      }).
-      style({
-        'width':  width  + 'px',
-        'height': height + 'px',
-      }).
-      selectAll('div');
-  }
-
-  render(newValue) {
-    if (!newValue) return;
-
-    this.divs.data(newValue).enter().append('div')
-      .transition().ease('elastic')
-      .style('width', d => d + '%')
-      .text(d => d + '%');
-
-  }
-
-  onChange() {
-    this.render(this.data);
-  }
-}
-*/
 
 @Component({
   selector: 'radar2',
@@ -74,84 +29,99 @@ class BarGraph {
   directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, RadarComponent2]
 
 })
-//@RouteConfig([
-//  { path: 'units', name: 'Home',  component: UnitListComponent, useAsDefault: true},
-//])
 export class RadarComponent2 implements OnInit, AfterViewInit {
   radar_data: any;
+  _data2: any;
   constructor(private manageService: ManageService, private radarService: RadarService ) {;};
+
+  public getData2() {
+        return [
+                      {id: 1, title: 'CSS', quadrant: 'techniques', level: 'trial', newValue: true, number: 1},
+                      {id: 2, title: 'Javascript', quadrant: 'tools', level: 'assess', newValue: true, number: 2},
+                      {id: 3, title: '.NET', quadrant: 'platforms', level: 'hold', newValue: true, number: 3}
+                    ];
+  }
+
   ngOnInit() {
-    console.log('radar componentn init');
-    this.prepareRadarData();
-    console.log('radar component init finish');
+    console.log('on init radarcomp2');
+
   }
   buildRadar() {
-      console.log('building radar');
+//      console.log('building radar');
+//      var tts = require('tooltipster/js/jquery.tooltipster.js');
+//      console.log('tts', tts);
       var RadarChart  = require('techradar/lib/radarChart.js');
-      console.log('rchart:', RadarChart);
+
+//      console.log('rchart:', RadarChart);
       var margin = {top: 100, right: 100, bottom: 100, left: 100},
-      				width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right,
+      				width = Math.min(600, window.innerWidth - 10) - margin.left - margin.right,
       				height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
 
 
-var data = [
-					  [//iPhone
-						{axis:'Battery Life',value:0.22},
-						{axis:'Brand',value:0.28},
-						{axis:'Contract Cost',value:0.29},
-						{axis:'Design And Quality',value:0.17},
-						{axis:'Have Internet Connectivity',value:0.22},
-						{axis:'Large Screen',value:0.02},
-						{axis:'Price Of Device',value:0.21},
-						{axis:'To Be A Smartphone',value:0.50}
-					  ],[//Samsung
-						{axis:'Battery Life',value:0.27},
-						{axis:'Brand',value:0.16},
-						{axis:'Contract Cost',value:0.35},
-						{axis:'Design And Quality',value:0.13},
-						{axis:'Have Internet Connectivity',value:0.20},
-						{axis:'Large Screen',value:0.13},
-						{axis:'Price Of Device',value:0.35},
-						{axis:'To Be A Smartphone',value:0.38}
-					  ],[//Nokia Smartphone
-						{axis:'Battery Life',value:0.26},
-						{axis:'Brand',value:0.10},
-						{axis:'Contract Cost',value:0.30},
-						{axis:'Design And Quality',value:0.14},
-						{axis:'Have Internet Connectivity',value:0.22},
-						{axis:'Large Screen',value:0.04},
-						{axis:'Price Of Device',value:0.41},
-						{axis:'To Be A Smartphone',value:0.30}
-					  ]
-					];
-			//////////////////////////////////////////////////////////////
-			//////////////////// Draw the Chart //////////////////////////
-			//////////////////////////////////////////////////////////////
-			var color = d3.scale.ordinal()
-				.range(['#EDC951','#CC333F','#00A0B0']);
+      var axises = ['Techniques', 'Tools', 'Languages and frameworks', 'Platforms'];
 
-			var radarChartOptions = {
-			  w: width,
-			  h: height,
-			  margin: margin,
-			  maxValue: 0.5,
-			  levels: 5,
-			  roundStrokes: true,
-			  color: color
-			};
-			//Call function to draw the Radar chart
-			RadarChart('.radarChart', data, radarChartOptions);
-//
-//      var rr  = require('techradar/lib/protovis-3.2/protovis-d3.2.js');
-//      var rr3 = require('techradar/lib/lodash.underscore.min.js');
-//      var rr4 = require('techradar/utils.js');
-//      var rr2 = require('techradar/radars/radarData.js');
-//
-//      console.log('rr2', rr2);
-//
-//      var ra = require('techradar/radar.js');
-////      console.log('data', this.radar_data);
-//      var r = ra(1000, 1200, jQuery, this.radar_data);
+      var data = [
+                  [//iPhone
+                  {axis:'Battery Life',value:0.22},
+                  {axis:'Brand',value:0.28},
+                  {axis:'Contract Cost',value:0.29},
+                  {axis:'Design And Quality',value:0.17},
+                  {axis:'Have Internet Connectivity',value:0.22},
+                  {axis:'Large Screen',value:0.02},
+                  {axis:'Price Of Device',value:0.21},
+                  {axis:'To Be A Smartphone',value:0.50}
+                  ],[//Samsung
+                  {axis:'Battery Life',value:0.27},
+                  {axis:'Brand',value:0.16},
+                  {axis:'Contract Cost',value:0.35},
+                  {axis:'Design And Quality',value:0.13},
+                  {axis:'Have Internet Connectivity',value:0.20},
+                  {axis:'Large Screen',value:0.13},
+                  {axis:'Price Of Device',value:0.35},
+                  {axis:'To Be A Smartphone',value:0.38}
+                  ],[//Nokia Smartphone
+                  {axis:'Battery Life',value:0.26},
+                  {axis:'Brand',value:0.10},
+                  {axis:'Contract Cost',value:0.30},
+                  {axis:'Design And Quality',value:0.14},
+                  {axis:'Have Internet Connectivity',value:0.22},
+                  {axis:'Large Screen',value:0.04},
+                  {axis:'Price Of Device',value:0.41},
+                  {axis:'To Be A Smartphone',value:0.30}
+                  ]
+                ];
+      console.log('data1 ready');
+            //////////////////////////////////////////////////////////////
+            //////////////////// Draw the Chart //////////////////////////
+            //////////////////////////////////////////////////////////////
+      var color = d3.scale.ordinal()
+        .range(['#EDC951','#CC333F','#00A0B0']);
+
+      var radarChartOptions = {
+        w: width,
+        h: height,
+        margin: margin,
+        maxValue: 4,
+        levels: 4,
+        levelLabels: ['adopt', 'trial', 'assess', 'hold'],
+        axises: axises,
+        roundStrokes: true,
+        color: color
+      };
+      //Call function to draw the Radar chart
+      console.log('feed data to radar', this.getData2());
+      RadarChart('.radarChart', data, radarChartOptions, this.getData2());
+      //
+      //      var rr  = require('techradar/lib/protovis-3.2/protovis-d3.2.js');
+      //      var rr3 = require('techradar/lib/lodash.underscore.min.js');
+      //      var rr4 = require('techradar/utils.js');
+      //      var rr2 = require('techradar/radars/radarData.js');
+      //
+      //      console.log('rr2', rr2);
+      //
+      //      var ra = require('techradar/radar.js');
+      ////      console.log('data', this.radar_data);
+      //      var r = ra(1000, 1200, jQuery, this.radar_data);
   }
   buildData() {
     var h = 1000;
@@ -286,28 +256,51 @@ var data = [
                         ];
 //               return radaData;??
   }
+  tooltiptize(inst: RadarComponent2) {
+    console.log('data we have is ', this.getData2());
+    for (var sitem of inst.getData2())
+    {
+                jQuery('blip-'+sitem.id).tooltipster({
+                          animation: 'grow',
+                          theme: 'tooltipster-punk',
+                          content: sitem.title
+                        });
+    }
+    jQuery('#demo-theme').tooltipster({
+            animation: 'grow',
+            theme: 'tooltipster-punk',
+            content: 'This is a new content'
+    });
+  }
   ngAfterViewInit() {
     console.log('after view init');
+    this.prepareRadarData();
+    this.buildRadar();
 
-    }
-    public prepareRadarData() {
+//      jQuery('.tooltip').tooltipster();
+    jQuery(document).ready(this.tooltiptize(this));
+
+  }
+
+  public prepareRadarData() {
       var radarData = this.buildData();
+
       var items = [];
       var tq = this.radarService.getInitiatives(Areas.techniques).then( res => {
-         for (var item of res)
-         {
-           radarData[0].items.push({name: item.name,  pc: { r: 230, t: 133 }, movement: item.nInitiative?'t':'c' });
-         }
+          for (var item of res)
+          {
+            radarData[0].items.push({name: item.name,  pc: { r: 230, t: 133 }, movement: item.nInitiative?'t':'c' });
+          }
 
-//         console.log('formed items', items);
-      console.log('RD', radarData[0].items);
-        // radarData[0]['items'] = items;
-             this.radar_data = radarData;
-      console.log('formed radar data',radarData);
+  //         console.log('formed items', items);
+  //      console.log('RD', radarData[0].items);
+          // radarData[0]['items'] = items;
+               this.radar_data = radarData;
+      this._data2 = this.getData2();
+  //      console.log('formed radar data',radarData);
 
-        console.log('building radar');
-        this.buildRadar();
-        });
+          console.log('all data prepared');
+      });
 
-}
+  }
 }

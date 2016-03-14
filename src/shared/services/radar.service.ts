@@ -12,7 +12,7 @@ export class RadarService {
     console.log('Moving initiative',  initiativeId, ' to embracement level ', e);
   }
   public addInitiative(i: Initiative, area: Areas) {
-    console.log('RadarService: Saving initiative', i, area, typeof(area));
+//    console.log('RadarService: Saving initiative', i, area, typeof(area));
 
     if (area === Areas.techniques)
             INITIATIVES_TECH.push(i);
@@ -28,7 +28,7 @@ export class RadarService {
     }
   }
   public getInitiatives(area: Areas) {
-    console.log('Retrieving initiatives for ', area);
+//    console.log('Retrieving initiatives for ', area);
     if (area === Areas.techniques)
         return Promise.resolve(INITIATIVES_TECH);
     if (area === Areas.tools)

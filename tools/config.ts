@@ -92,8 +92,9 @@ export const PROD_NPM_DEPENDENCIES: IDependency[] = normalizeDependencies([
 // Declare local files that needs to be injected
 export const APP_ASSETS: IDependency[] = [
   { src: `${ASSETS_SRC}/main.css`, inject: true },
-  { src: `${APP_SRC}/lib/tooltipster/css/tooltipster.css`, inject: true},
-  { src: `${APP_SRC}/lib/tooltipster/css/themes/tooltipster-punk.css`, inject: true}
+  { src: `${APP_SRC}/lib/tooltipster/css/tooltipster.css`, inject: true}
+//  { src: `${APP_SRC}/lib/tooltipster/css/themes/tooltipster-default.css`, inject: true},
+//  { src: `${APP_SRC}/lib/tooltipster/css/themes/tooltipster-punk.css`, inject: true}
 
 ];
 
@@ -112,7 +113,7 @@ const SYSTEM_CONFIG_DEV = {
     'rxjs/*': `${APP_BASE}rxjs/*`,
     'bower_components/*': `${APP_BASE}bower_components/*`,
     'dragula': `${APP_BASE}node_modules/dragula/dist/dragula.min.js`,
-    'tooltipster': `${APP_SRC}lib/tooltipster/*`,
+//    'tooltipster': `${APP_SRC}lib/tooltipster/*`,
     //'protovis': `${APP_BASE}node_modules/protovis/protovis-d3.2.js`,
     '/src/*': `${APP_BASE}node_modules/*`,
     '*': `${APP_BASE}node_modules/*`

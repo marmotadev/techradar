@@ -10,6 +10,7 @@ import {ViewRadarComponent} from '../../radar/view-radar.component';
 import {NameListService} from '../../shared/services/name-list.service';
 import {ManageService} from '../../shared/services/manage.service';
 import {RadarService} from '../../shared/services/radar.service';
+import {RadarComponent3} from '../../radar/components/radar3.component';
 
 @Component({
   selector: 'sd-app',
@@ -24,6 +25,7 @@ import {RadarService} from '../../shared/services/radar.service';
   { path: '/',      name: 'Home',  component: HomeComponent  },
   { path: '/about', name: 'About', component: AboutComponent },
   { path: '/manage/...', name: 'Manage', component: ManageComponent },
-  { path: '/radar', name: 'ViewRadar', component: ViewRadarComponent, useAsDefault: true }
+  { path: '/radar', name: 'ViewRadar', component: ViewRadarComponent, useAsDefault: true },
+  { path: '/radar3', name: 'ViewRadar3', component: RadarComponent3}
 ])
 export class AppComponent {}

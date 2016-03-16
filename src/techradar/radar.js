@@ -1,10 +1,12 @@
 module.exports = function init(h,w,$, radar_data) {
+module.exports = function init(h,w,$, radar_data) {
 //require('./lib/protovis-3.2/protovis-3.2.js');
 //require('protovis');
 //require('./lib/lodash.underscore.min.js');
 //require('lodash');
-  $('#title').text(document.title);
+  $('#title').text("asdfasdf");
 
+console.log("Yo bitch");
  var radar = new pv.Panel()
       .width(w)
       .height(h)

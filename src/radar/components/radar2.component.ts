@@ -262,7 +262,7 @@ export class RadarComponent2 implements OnInit, AfterViewInit {
     {
                 jQuery('blip-'+sitem.id).tooltipster({
                           animation: 'grow',
-                          theme: 'tooltipster-punk',
+//                          theme: 'tooltipster-punk',
                           content: sitem.title
                         });
     }

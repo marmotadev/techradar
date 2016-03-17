@@ -37,12 +37,13 @@ export class RadarComponent2 implements OnInit, AfterViewInit {
   public getData2(): any[] {
         return [
                       {id: 1, title: 'CSS', quadrant: 'techniques', level: 'trial', newValue: true, number: 1},
-                      {id: 2, title: 'Javascript', quadrant: 'tools', level: 'assess', newValue: true, number: 2},
+                      {id: 2, title: 'Javascript', quadrant: 'tools', level: 'assess', newValue: true, number: 1},
                       {id: 3, title: '.NET', quadrant: 'platforms', level: 'hold', newValue: true, number: 1},
                       {id: 4, title: '.NET 4', quadrant: 'platforms', level: 'hold', newValue: true, number: 2},
-                      {id: 2, title: 'Javascript1.5', quadrant: 'tools', level: 'assess', newValue: true, number: 2},
-                      {id: 2, title: 'JavascriptES5', quadrant: 'tools', level: 'assess', newValue: true, number: 3},
-                      {id: 2, title: 'JavascriptES6', quadrant: 'tools', level: 'assess', newValue: true, number: 4},
+                      {id: 5, title: 'Javascript1.5', quadrant: 'tools', level: 'assess', newValue: true, number: 2},
+                      {id: 6, title: 'JavascriptES5', quadrant: 'tools', level: 'assess', newValue: true, number: 3},
+                      {id: 7, title: 'JavascriptES6', quadrant: 'tools', level: 'assess', newValue: true, number: 4},
+                      {id: 8, title: 'CI', quadrant: 'techniques', level: 'adopt', newValue: true, number: 2},
                     ];
   }
 

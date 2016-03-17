@@ -1,6 +1,6 @@
 import {Component, OnInit} from 'angular2/core';
 //import {ROUTER_DIRECTIVES, RouteConfig} from 'angular2/router';
-import {Router} from 'angular2/router';
+import {RouteParams, Router, RouteConfig} from 'angular2/router';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
 
 import {NameListService} from '../shared/services/name-list.service';
@@ -14,11 +14,11 @@ import {RadarComponent2} from './components/radar2.component';
 
 
 @Component({
-  selector: 'view-radar',
-  moduleId: module.id,
-  templateUrl: './view-radar.component.html',
-  styleUrls: ['./view-radar.component.css'],
-  directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, RadarComponent,RadarComponent2]
+    selector: 'view-radar',
+    moduleId: module.id,
+    templateUrl: './view-radar.component.html',
+    styleUrls: ['./view-radar.component.css'],
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, RadarComponent2]
 
 })
 //@RouteConfig([
@@ -26,10 +26,17 @@ import {RadarComponent2} from './components/radar2.component';
 //])
 export class ViewRadarComponent implements OnInit {
 
-  constructor(public nameListService: NameListService, private _heroService: ManageService, private _router: Router) {}
+    selectedArea: string;
 
-  ngOnInit() {
-//    console.log('on init');
-  }
+    constructor(public nameListService: NameListService, private _heroService: ManageService, private _router: Router,
+    private _routeParams: RouteParams) {
+        this.selectedArea = this._routeParams.get('area');
+        console.log('selected ', this.selectedArea);
+    }
+
+    ngOnInit() {
+//        let id = +this._routeParams.get('area');
+//        console.log('on init', id);
+    }
 }
 

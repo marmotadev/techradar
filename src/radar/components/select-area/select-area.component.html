@@ -1,0 +1,29 @@
+<div>
+	<!-- <h2>{{unit.name}} unit's technology radar!</h2> -->
+
+	<div class="radar-quadrant-navigation" id="radar">
+		<ul class="radar-quadrant-navigation__radar-quadrants">
+			<li class="radar-quadrant-navigation__quadrant"><a
+				class="techniques"
+				[class.selected]="isCategorySelected2(areasEnum.techniques)"
+				(click)="openCategory(areasEnum[areasEnum.techniques])"
+				nav-entry="techniques">Techniques</a></li>
+			<li class="radar-quadrant-navigation__quadrant"><a class="tools"
+				[class.selected]="isCategorySelected2(areasEnum.tools)"
+				(click)="openCategory(areasEnum[areasEnum.tools])" nav-entry="tools">Tools</a>
+			</li>
+			<li class="radar-quadrant-navigation__quadrant"><a
+				class="platforms"
+				[class.selected]="isCategorySelected2(areasEnum.platforms)"
+				(click)="openCategory(areasEnum[areasEnum.platforms])"
+				nav-entry="platforms">Platforms</a></li>
+			<li class="radar-quadrant-navigation__quadrant"><a
+				class="languages"
+				[class.selected]="isCategorySelected2(areasEnum.languagesAndFrameworks)"
+				(click)="openCategory(areasEnum[areasEnum.languagesAndFrameworks])"
+				nav-entry="languages-and-frameworks">Languages &amp;<br>Frameworks
+			</a></li>
+		</ul>
+	</div>
+</div>
+

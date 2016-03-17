@@ -33,7 +33,7 @@ declare var jQuery: JQueryStatic;
 export class RadarComponent2 implements OnInit, AfterViewInit {
     radar_data: any;
     _data2: any;
-    public quadrant: string = 'techniques';
+    @Input() area: string;
 
     constructor(private manageService: ManageService, private radarService: RadarService) { ; };
 
@@ -51,8 +51,7 @@ export class RadarComponent2 implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-        console.log('on init radarcomp2', this.quadrant);
-        this.quadrant = 'technologies';
+        console.log('on init radarcomp2', this.area);
 
     }
     buildRadar() {
@@ -88,7 +87,7 @@ export class RadarComponent2 implements OnInit, AfterViewInit {
         };
         //Call function to draw the Radar chart
         var fd = this.getData2(); //.filter (d => d.quadrant === 'platforms');
-//        console.log('feed data to radar', fd);
+        //        console.log('feed data to radar', fd);
         RadarChart('.radarChart', radarChartOptions, fd);
     }
 
@@ -106,7 +105,7 @@ export class RadarComponent2 implements OnInit, AfterViewInit {
         });
     }
     ngAfterViewInit() {
-//        console.log('after view init');
+        //        console.log('after view init');
         this.prepareRadarData();
         this.buildRadar();
 
@@ -117,6 +116,6 @@ export class RadarComponent2 implements OnInit, AfterViewInit {
 
     public prepareRadarData() {
         this._data2 = this.getData2();
-//        console.log('all data prepared');
+        //        console.log('all data prepared');
     }
 }

@@ -18,5 +18,11 @@
   "homepage": "https://github.com/bdargan/techradar#readme",
   "dependencies": {
     "protovis": "^3.2.0"
-  }
+  },
+  "readme": "Build Your Own Technology Radar.\n\nInspired by the ThoughtWorks Tech Radar: http://www.thoughtworks.com/radar/.\n\nI love the ThoughtWorks Radar. But it is for all clients, averaged out across industries, organisational maturity and risk adverseness.\n\n![Technology Radar Sample](/techradar_example.png?raw=true)\n\nIt is a powerful talking point, but I need it to be customised for particular circumstances.\n\nThis Technology Radar has pretty simple functionality, uses json data source and renders SVG within html.\n\nThe data currently is provided in a radial format. I chose this and SVG, for the scalable properties. In practice, a table based structure, that automatically lays out the points could be more useful.\n\nEg. {name:'Cool Tech', r:50, t:30}\nAppears in the Top Right Quadrant, in the inner most \"Adopt\" Sector.\n\nEg. {name:'Bright Shiny Toy 5', r:390, t:30}\nAppears in the Top Right Quadrant, in the outer most \"Hold\" Sector.\n\nAppears in the Lower Left Quadrant, in the second \"Trial\" Sector.\n\nWhere r = radius, and t = theta; the degrees in radians. with 0/360 degrees being the typical right hand x line rotating in an anti-clockwise direction.\n\nSee http://en.wikipedia.org/wiki/Polar_coordinates for more details.\n",
+  "readmeFilename": "README.md",
+  "_id": "techradar@1.0.0",
+  "_shasum": "5a6745cdff97a92ed6c91dda596dbfd980743096",
+  "_from": "src/techradar",
+  "_resolved": "file:src/techradar"
 }

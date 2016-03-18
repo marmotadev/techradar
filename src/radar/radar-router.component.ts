@@ -10,7 +10,6 @@ import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
 //import {UnitDetailComponent} from './unit-detail/unit-detail.component';
 import {SelectAreaComponent} from './components/select-area/select-area.component';
 import {ViewRadarComponent} from './view-radar.component';
-import {RadarLandingComponent} from './radar-landing';
 
 
 @Component({
@@ -18,12 +17,11 @@ import {RadarLandingComponent} from './radar-landing';
   moduleId: module.id,
   template: '<router-outlet></router-outlet>',
   directives: [ROUTER_DIRECTIVES],
-
 })
+    //todo: we need to route to the same component here, and control just internally when to go deeper
 @RouteConfig([
   { path: '/:area', name: 'ViewRadar',  component: ViewRadarComponent},
-//  { path: '/:area/:technology', name: 'UnitDetail', component: UnitDetailComponent },
-  { path: '/', name: 'RadarLandingPage', component: RadarLandingComponent, useAsDefault: true}
+  { path: '/', name: 'RadarLandingPage', component: ViewRadarComponent, useAsDefault: true}
 ])
 export class RadarRouterComponent {
   constructor(private _router: Router) {;}

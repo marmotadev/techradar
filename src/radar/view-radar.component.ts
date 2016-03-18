@@ -6,11 +6,11 @@ import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
 import {NameListService} from '../shared/services/name-list.service';
 //import {OrganizationUnit} from '../shared/model/organization-unit';
 import {ManageService} from '../shared/services/manage.service';
-//import {DragulaService, Dragula} from 'ng2-dragula/ng2-dragula';
-//import {UnitDetailComponent} from './unit-detail/unit-detail.component';
-//import {UnitListComponent} from './unit-list.component';
+import {Areas} from '../shared/model/areas';
 import {RadarComponent} from './components/radar.component';
 import {RadarComponent2} from './components/radar2.component';
+import {SelectAreaComponent} from './components/select-area/select-area.component';
+import {QuadrantListComponent} from './components/quadrant-list.component';
 
 
 @Component({
@@ -18,7 +18,7 @@ import {RadarComponent2} from './components/radar2.component';
     moduleId: module.id,
     templateUrl: './view-radar.component.html',
     styleUrls: ['./view-radar.component.css'],
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, RadarComponent2]
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, RadarComponent2, SelectAreaComponent, QuadrantListComponent]
 
 })
 //@RouteConfig([
@@ -27,6 +27,13 @@ import {RadarComponent2} from './components/radar2.component';
 export class ViewRadarComponent implements OnInit {
 
     selectedArea: string;
+
+    areaSelected(event) {
+        console.log('ViewRadarComponent: Area selected in landing page', event);
+        this.selectedArea = Areas[Areas[event]];
+        console.log('ViewRadarComponent: route to ', this.selectedArea);
+        this._router.navigate(['ViewRadar', { area: event }]);
+    }
 
     constructor(public nameListService: NameListService, private _heroService: ManageService, private _router: Router,
     private _routeParams: RouteParams) {

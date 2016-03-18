@@ -29,7 +29,6 @@ import {RadarRouterComponent} from '../../radar/radar-router.component';
   { path: '/about', name: 'About', component: AboutComponent },
   { path: '/manage/...', name: 'Manage', component: ManageComponent },
   { path: '/radar/...', name: 'RadarRouter', component: RadarRouterComponent },
-//  { path: '/radar2', name: 'ViewRadar2', component: ViewRadarComponent },
   { path: '/radar3', name: 'ViewRadar3', component: RadarComponent3}
 ])
 export class AppComponent {}

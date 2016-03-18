@@ -35,14 +35,13 @@ declare var jQuery: JQueryStatic;
 
 export class QuadrantListComponent implements OnInit, AfterViewInit {
 
-    @Input() quadrant: string;
-    adoptionItems: any[] = [];
+    @Input() area: string;
+    @Input() adoptionItems: any[] = [];
 
     constructor(private manageService: ManageService, private radarService: RadarService) { ; };
 
     ngOnInit() {
-//        this.quadrant = 'techniques';
-        console.log('selected q', this.quadrant);
+        console.log('selected area', this.area);
         this.adoptionItems = [
             {id:'adopt', 'title':'ADOPT', 'blips':
                 [

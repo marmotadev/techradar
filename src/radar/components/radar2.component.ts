@@ -26,7 +26,7 @@ declare var jQuery: JQueryStatic;
     moduleId: module.id,
     //  template: '',
     templateUrl: './radar2.component.html',
-    styleUrls: ['./app.css'],
+//    styleUrls: ['./app.css'],
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, RadarComponent2, QuadrantListComponent]
 
 })
@@ -34,6 +34,7 @@ export class RadarComponent2 implements OnInit, AfterViewInit {
     radar_data: any;
     _data2: any;
     @Input() area: string;
+    @Input() data: any;
 
     constructor(private manageService: ManageService, private radarService: RadarService) { ; };
 

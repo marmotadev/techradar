@@ -24,41 +24,30 @@ declare var jQuery: JQueryStatic;
 @Component({
     selector: 'radar2',
     moduleId: module.id,
-    //  template: '',
-    templateUrl: './radar2.component.html',
-//    styleUrls: ['./app.css'],
+    template: '<div class="radarChart"></div><content></content>',
+//    templateUrl: './radar2.component.html',
+    //    styleUrls: ['./app.css'],
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, RadarComponent2, QuadrantListComponent]
 
 })
 export class RadarComponent2 implements OnInit, AfterViewInit {
-    radar_data: any;
-    _data2: any;
     @Input() area: string;
-    @Input() data: any;
+    @Input() data: any[];
 
     constructor(private manageService: ManageService, private radarService: RadarService) { ; };
 
-    public getData2(): any[] {
-        return [
-            { id: 1, title: 'CSS', quadrant: 'techniques', level: 'trial', newValue: true, number: 1 },
-            { id: 2, title: 'Javascript', quadrant: 'tools', level: 'assess', newValue: true, number: 1 },
-            { id: 3, title: '.NET', quadrant: 'platforms', level: 'hold', newValue: true, number: 1 },
-            { id: 4, title: '.NET 4', quadrant: 'platforms', level: 'hold', newValue: true, number: 2 },
-            { id: 5, title: 'Javascript1.5', quadrant: 'tools', level: 'assess', newValue: true, number: 2 },
-            { id: 6, title: 'JavascriptES5', quadrant: 'tools', level: 'assess', newValue: true, number: 3 },
-            { id: 7, title: 'JavascriptES6', quadrant: 'tools', level: 'assess', newValue: true, number: 4 },
-            { id: 8, title: 'CI', quadrant: 'techniques', level: 'adopt', newValue: true, number: 2 },
-        ];
-    }
-
     ngOnInit() {
         console.log('on init radarcomp2', this.area);
-
+    }
+    hack(val) {
+        return Array.from(val);
     }
     buildRadar() {
         //      console.log('building radar');
         //      var tts = require('tooltipster/js/jquery.tooltipster.js');
         //      console.log('tts', tts);
+        var rr3 = require('techradar/lib/lodash.underscore.min.js');
+        var rr4 = require('techradar/utils.js');
         var RadarChart = require('techradar/lib/radarChart.js');
 
         var margin = { top: 100, right: 100, bottom: 100, left: 100 },
@@ -86,14 +75,26 @@ export class RadarComponent2 implements OnInit, AfterViewInit {
             color: color,
             quadrant: 'techniques'
         };
-        //Call function to draw the Radar chart
-        var fd = this.getData2(); //.filter (d => d.quadrant === 'platforms');
-        //        console.log('feed data to radar', fd);
-        RadarChart('.radarChart', radarChartOptions, fd);
+        console.log('last breath', this.data);
+        RadarChart('.radarChart', radarChartOptions, this.transformDataForRadar(this.data));
     }
 
+    transformDataForRadar(data: any[]) {
+        //            { id: 1, title: 'CSS', quadrant: 'techniques', level: 'trial', newValue: true, number: 1 },
+        var ret: any[] = [];
+        for (var lvl of this.data) {
+            console.log('transforming level', lvl);
+            for (var blip of lvl.blips) {
+                console.log('transforming blip', blip);
+                var retItem = { id: blip.id, title: blip.title, level: lvl.id, newValue: blip.movement === 'c'?true:false,
+                 number: blip.number, description: blip.description };
+                ret.push(retItem);
+            }
+        }
+        return ret;
+    }
     tooltiptize(inst: RadarComponent2) {
-        for (var sitem of inst.getData2()) {
+        for (var sitem of inst.data) {
             jQuery('blip-' + sitem.id).tooltipster({
                 animation: 'grow',
                 content: sitem.title
@@ -106,17 +107,10 @@ export class RadarComponent2 implements OnInit, AfterViewInit {
         });
     }
     ngAfterViewInit() {
-        //        console.log('after view init');
-        this.prepareRadarData();
         this.buildRadar();
 
         //      jQuery('.tooltip').tooltipster();
         //    jQuery(document).ready(this.tooltiptize(this));
 
-    }
-
-    public prepareRadarData() {
-        this._data2 = this.getData2();
-        //        console.log('all data prepared');
     }
 }

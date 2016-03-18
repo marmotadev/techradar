@@ -1,5 +1,8 @@
 import {Embracement} from '../model/embracement';
-
+//export interface Description {
+//    id: number;
+//    text: string;
+//}
 export class Initiative {
     constructor(
     public id: number,

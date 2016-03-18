@@ -6,8 +6,8 @@ import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
 import {NameListService} from '../shared/services/name-list.service';
 //import {OrganizationUnit} from '../shared/model/organization-unit';
 import {ManageService} from '../shared/services/manage.service';
+import {RadarService} from '../shared/services/radar.service';
 import {Areas} from '../shared/model/areas';
-import {RadarComponent} from './components/radar.component';
 import {RadarComponent2} from './components/radar2.component';
 import {SelectAreaComponent} from './components/select-area/select-area.component';
 import {QuadrantListComponent} from './components/quadrant-list.component';
@@ -27,7 +27,8 @@ import {QuadrantListComponent} from './components/quadrant-list.component';
 export class ViewRadarComponent implements OnInit {
 
     selectedArea: string;
-
+    areaData: any[];
+    
     areaSelected(event) {
         console.log('ViewRadarComponent: Area selected in landing page', event);
         this.selectedArea = Areas[Areas[event]];
@@ -35,15 +36,19 @@ export class ViewRadarComponent implements OnInit {
         this._router.navigate(['ViewRadar', { area: event }]);
     }
 
-    constructor(public nameListService: NameListService, private _heroService: ManageService, private _router: Router,
-    private _routeParams: RouteParams) {
+    constructor(public nameListService: NameListService, private _radarService: RadarService, 
+        private _heroService: ManageService, private _router: Router,
+        private _routeParams: RouteParams) {
+        
         this.selectedArea = this._routeParams.get('area');
         console.log('selected ', this.selectedArea);
+        if (this.selectedArea !== null && this.selectedArea.length !== 0) {
+            _radarService.getRadarData(Areas[this.selectedArea]).then( returnedData => this.areaData = returnedData);
+        }
     }
 
     ngOnInit() {
-//        let id = +this._routeParams.get('area');
-//        console.log('on init', id);
+        ;
     }
 }
 

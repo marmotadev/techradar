@@ -1,6 +1,6 @@
 import {Injectable} from 'angular2/core';
 import {Initiative} from '../model/initiative';
-import {INITIATIVES_TECH, INITIATIVES_TOOL, INITIATIVES_PLATF, INITIATIVES_LAN} from './mock-heroes';
+import {INITIATIVES_TECH, INITIATIVES_TOOL, INITIATIVES_PLATF, INITIATIVES_LAN, RADAR_DATA,RADAR_DATA2} from './mock-heroes';
 import {Areas} from '../model/areas';
 import {Embracement} from '../model/embracement';
 //import catToArea from './mock-heroes';
@@ -38,5 +38,15 @@ export class RadarService {
     if (area === Areas.platforms)
         return Promise.resolve(INITIATIVES_PLATF);
 
+  }
+  public getRadarData(area: Areas) {
+      console.log('RadarService.getRadarData()');
+      switch (area) {
+           case Areas.tools:
+                return Promise.resolve(RADAR_DATA);
+           default:
+            return Promise.resolve(RADAR_DATA2);
+      }
+//      return Promise.resolve(RADAR_DATA);
   }
 }

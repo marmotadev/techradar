@@ -36,54 +36,13 @@ declare var jQuery: JQueryStatic;
 export class QuadrantListComponent implements OnInit, AfterViewInit {
 
     @Input() area: string;
-    @Input() adoptionItems: any[] = [];
+    @Input() data: any[] = [];
 
     constructor(private manageService: ManageService, private radarService: RadarService) { ; };
 
     ngOnInit() {
         console.log('selected area', this.area);
-        this.adoptionItems = [
-            {id:'adopt', 'title':'ADOPT', 'blips':
-                [
-                {'id': 112, 'movement': 'c', 'number': 1, 'title': 'Consumer-driven contract testing', 'href':'/radar/view/112',
-                    'description':{'id': '9876', 'text':'When two ...'}
-                },
-                {'id': 113, 'movement': 'c', 'number': 2, 'title': 'Consumer2-driven contract testing', 'href':'/radar/view/113',
-                    'description':{'id': '1234', 'text':'Op op op ...'}
-                }
-                ]},
-            {id:'trial', 'title':'TRIAL', 'blips':
-                [
-                {'id': 114, 'movement': 'c', 'number': 1, 'title': 'Casdfadf', 'href':'/radar/view/112',
-                    'description':{'id': '9876', 'text':'Wasdfadfhen two ...'}
-                },
-                {'id': 115, 'movement': 'c', 'number': 2, 'title': 'C4444444', 'href':'/radar/view/113',
-                    'description':{'id': '1234', 'text':'112211Op op op ...'}
-                }
-                ]},
-            {id:'assess', 'title':'ASSESS', 'blips':
-                [
-                {'id': 114, 'movement': 'c', 'number': 1, 'title': 'C--=-=asdfadf', 'href':'/radar/view/112',
-                    'description':{'id': '9876', 'text':'Wasdfadfhen two ...'}
-                },
-                {'id': 115, 'movement': 'c', 'number': 2, 'title': '=-=-=-=C4444444', 'href':'/radar/view/113',
-                    'description':{'id': '1234', 'text':'112211Op op op ...'}
-                }
-                ]},
-            {id:'hold', 'title':'HOLD', 'blips':
-                [
-                {'id': 114, 'movement': 'c', 'number': 1, 'title': '33333Casdfadf', 'href':'/radar/view/112',
-                    'description':{'id': '9876', 'text':'Wasdfadfhen two ...'}
-                },
-                {'id': 115, 'movement': 'c', 'number': 2, 'title': 'C5555555555554444444', 'href':'/radar/view/113',
-                    'description':{'id': '1234', 'text':'112211Op op op ...'}
-                }
-                ]}
-//            ,
-//            {'title':'trial', 'blips': ['b']},
-//            {'title':'assess', 'blips': ['c']},
-//            {'title':'hold', 'blips': ['d']},
-        ];
+        
     }
 
     ngAfterViewInit() {

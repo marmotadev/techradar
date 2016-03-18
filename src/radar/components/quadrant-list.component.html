@@ -1,7 +1,7 @@
-Q: {{area}}
+List opened
 <div *ngIf="area != null && area.length != 0" [attr.class]="area" [attr.data-quadrant]="area" id="quadrant-blip-list">
- <!--  -->
-  <div *ngFor="#adoption of adoptionItems; #idx = index" id="{{adoption.title}}">
+area defined
+  <div *ngFor="#adoption of data; #idx = index" id="{{adoption.title}}">
   	<h3 class="ring {{adoption.title}}"><span class="dot {{area}}">●</span>{{adoption.title}}<span 
     class="tooltip-icon tooltipstered">?</span></h3>
     <ul>
@@ -20,5 +20,3 @@ Q: {{area}}
     </ul>
   </div>
 </div>
-<!--<div class="tooltip">asdfasdfadfad asdfa dfa sdf sd </div>-->
-<!--<div id="demo-theme" title="this is some tooltip message">nu tipo šitas turi tooltipą</div>-->

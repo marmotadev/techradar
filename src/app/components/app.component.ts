@@ -1,6 +1,9 @@
 import {Component, ViewEncapsulation} from 'angular2/core';
 import {ROUTER_DIRECTIVES,  RouteConfig} from 'angular2/router';
-//
+import {JSONP_PROVIDERS, HTTP_PROVIDERS}  from 'angular2/http';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/toPromise';
 import {NavbarComponent} from './navbar.component';
 import {ToolbarComponent} from './toolbar.component';
 import {ManageComponent} from '../../manage/components/manage.component';
@@ -20,7 +23,7 @@ import {RadarRouterComponent} from '../../radar/radar-router.component';
   templateUrl: './app.component.html',
   encapsulation: ViewEncapsulation.None,
   directives: [ROUTER_DIRECTIVES, NavbarComponent, ToolbarComponent],
-  providers: [ManageService, RadarService]
+  providers: [ManageService, RadarService, JSONP_PROVIDERS, HTTP_PROVIDERS]
 })
 @RouteConfig([
 //  { path: '/',      name: 'Home',  component: HomeComponent , },

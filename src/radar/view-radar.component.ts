@@ -28,7 +28,7 @@ export class ViewRadarComponent implements OnInit {
 
     selectedArea: string;
     areaData: any[];
-    
+
     areaSelected(event) {
         console.log('ViewRadarComponent: Area selected in landing page', event);
         this.selectedArea = Areas[Areas[event]];
@@ -36,14 +36,19 @@ export class ViewRadarComponent implements OnInit {
         this._router.navigate(['ViewRadar', { area: event }]);
     }
 
-    constructor(public nameListService: NameListService, private _radarService: RadarService, 
+    constructor(public nameListService: NameListService, private _radarService: RadarService,
         private _heroService: ManageService, private _router: Router,
         private _routeParams: RouteParams) {
-        
+
         this.selectedArea = this._routeParams.get('area');
         console.log('selected ', this.selectedArea);
         if (this.selectedArea !== null && this.selectedArea.length !== 0) {
-            _radarService.getRadarData(Areas[this.selectedArea]).then( returnedData => this.areaData = returnedData);
+            var ob = _radarService.getRadarData(Areas[this.selectedArea])
+                .then(returnedData => {
+                    console.log('data from service:', returnedData);
+                    this.areaData = returnedData;
+                });
+            console.log('observer/promise', ob);
         }
     }
 

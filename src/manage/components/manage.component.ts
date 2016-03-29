@@ -8,6 +8,7 @@ import {OrganizationUnit} from '../../shared/model/organization-unit';
 import {ManageService} from '../../shared/services/manage.service';
 import {DragulaService, Dragula} from 'ng2-dragula/ng2-dragula';
 import {UnitDetailComponent} from './unit-detail/unit-detail.component';
+import {ManageRadarComponent} from './manage-radar/manage-radar.component';
 import {UnitListComponent} from './unit-list.component';
 
 @Component({
@@ -20,6 +21,8 @@ import {UnitListComponent} from './unit-list.component';
 
 })
 @RouteConfig([
+    
+  { path: '/radar/:id', name: 'ManageRadar',  component: ManageRadarComponent},
   { path: 'units', name: 'Home',  component: UnitListComponent, useAsDefault: true},
 ///  { path: '/about', name: 'About', component: AboutComponent },
   { path: '/unit/:id', name: 'UnitDetail', component: UnitDetailComponent },

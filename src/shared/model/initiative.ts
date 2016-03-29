@@ -1,4 +1,5 @@
 import {Embracement} from '../model/embracement';
+import {Areas} from '../model/areas';
 //export interface Description {
 //    id: number;
 //    text: string;
@@ -6,8 +7,12 @@ import {Embracement} from '../model/embracement';
 export class Initiative {
     constructor(
     public id: number,
-    public name: string,
+    public title: string,
     public description?: string,
-    public embracement?: Embracement,
-    public nInitiative?: boolean) {}
+    public level?: Embracement,
+    public isNew?: boolean,
+    public area?: Areas,
+    public order?: number,
+    public dateCreated?: Date) {}
+    
 }

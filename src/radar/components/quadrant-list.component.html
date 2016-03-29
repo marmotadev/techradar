@@ -1,22 +1,33 @@
 List opened
-<div *ngIf="area != null && area.length != 0" [attr.class]="area" [attr.data-quadrant]="area" id="quadrant-blip-list">
-area defined
-  <div *ngFor="#adoption of data; #idx = index" id="{{adoption.title}}">
-  	<h3 class="ring {{adoption.title}}"><span class="dot {{area}}">●</span>{{adoption.title}}<span 
-    class="tooltip-icon tooltipstered">?</span></h3>
-    <ul>
-      <li *ngFor="#blip of adoption.blips">
-        <div class="blip-link" [attr.data-blip-id]="blip.id" [attr.data-movement]="blip.movement" [attr.data-radar-id]="1" [attr.data-radius]="75" [attr.data-theta]="162"
-             [attr.data-url]="blip.href" [attr.id]="'blip-link'+blip.id"
-             style="color: black; background-color: white;"><span class="blip-graphic-id">{{blip.number}}. </span><span
-          class="blip-name" style="display: inline;">{{blip.title}}</span><a
-          class="non-js-blip-desc-link" href="{{blip.href}}"
-          style="display: none;">Consumer-driven contract testing</a></div>
-        <div class="blip-description" id="blip-description-{{blip.description.id}}">
-        <p>{{blip.description.text}}</p>
-          <div><a href="{{blip.href}}">History</a></div>
-        </div>
-      </li>
-    </ul>
-  </div>
+<div *ngIf="area != null && area.length != 0" [attr.class]="area"
+	[attr.data-quadrant]="area" id="quadrant-blip-list">
+	area defined
+	<div *ngFor="#adoption of data; #idx = index" id="{{adoption.title}}">
+		<h3 class="ring {{adoption.title}}">
+			<span class="dot {{area}}">●</span>{{adoption.title | uppercase}}<span
+				class="tooltip-icon tooltipstered">?</span>
+		</h3>
+		<ul>
+			<li *ngFor="#blip of adoption.blips">
+				<div class="blip-link" [attr.data-blip-id]="blip.id"
+					[attr.data-movement]="blip.movement" [attr.data-radar-id]="1"
+					[attr.data-radius]="75" [attr.data-theta]="162"
+					[attr.data-url]="blip.href" [attr.id]="'blip-link'+blip.id"
+					style="color: black; background-color: white;">
+					<span class="blip-graphic-id">{{blip.order}}. </span><span
+						class="blip-name" style="display: inline;">{{blip.title}}</span> <a
+						class="non-js-blip-desc-link" href="{{blip.href}}"
+						style="display: none;">{{blip.title}}</a>
+						<span *ngIf="blip.isNew" class="new-blip-marker radar-movement techniques">new</span>
+				</div>
+				<div class="blip-description"
+					id="blip-description-{{blip.description.id}}">
+					<p>{{blip.description}}</p>
+					<div>
+						<a href="{{blip.href}}">History</a>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
 </div>

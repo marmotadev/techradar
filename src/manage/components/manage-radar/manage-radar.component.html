@@ -1,0 +1,72 @@
+Radar management page (TODO: remove this line)
+<div *ngIf="radar">
+	<h2>{{radar.title}}</h2>
+
+	<select-area (onSelected)="areaSelected($event)"></select-area>
+
+	<div *ngIf="selectedArea">
+		<h2>Area: {{selectedArea}}</h2>
+		<div *ngIf="showAddNew">
+			<!--<div *ngFor="#cat of-->
+			<item-form (onCancel)="closeAddNewForm()"
+				(onAdd)="initiativeAdded($event)" [area]="selectedArea"></item-form>
+
+		</div>
+		<div *ngIf="!showAddNew">
+			<button class="btn btn-default" (click)="showAddNewForm()">Add
+				new</button>
+		</div>
+		<div>
+			<div class='wrapper' id="dragulaWrapper">
+				<div class='container' [attr.data-container-id]='"assess"'
+					[dragula]='"embracements-bag"'>
+					<div *ngFor="#initiative of initiatives2[embracementEnum.assess]"
+						[attr.data-embr-id]="initiative.id">{{initiative.title}}
+						{{initiative.description}}</div>
+
+				</div>
+				<div class='container' [attr.data-container-id]='"trial"'
+					[dragula]='"embracements-bag"'>
+					<div *ngFor="#initiative of initiatives2[embracementEnum.trial]"
+						[attr.data-embr-id]="initiative.id">{{initiative.title}}
+						{{initiative.description}}</div>
+				</div>
+				<div class='container' [attr.data-container-id]='"adopt"'
+					[dragula]='"embracements-bag"'>
+					<div *ngFor="#initiative of initiatives2[embracementEnum.adopt]"
+						[attr.data-embr-id]="initiative.id">{{initiative.title}}
+						{{initiative.description}}</div>
+				</div>
+				<div class='container' [attr.data-container-id]='"hold"'
+					[dragula]='"embracements-bag"'>
+					<div *ngFor="#initiative of initiatives2[embracementEnum.hold]"
+						[attr.data-embr-id]="initiative.id">{{initiative.title}}
+						{{initiative.description}}</div>
+				</div>
+				<!-- <div class='container' [attr.data-container-id]='"trial"' [dragula]='"embracements-bag"'>
+          <div  *ngFor="#initiative of filteredInitiatives(embracementEnum.trial)" [attr.data-embr-id]="initiative.id">{{initiative.title}}
+            {{initiative.description}}
+          </div>
+        </div>
+        <div class='container' [attr.data-container-id]='"adopt"' [dragula]='"embracements-bag"'>
+          <div *ngFor="#initiative of filteredInitiatives2[embracementEnum.adopt]"  [attr.data-embr-id]="initiative.id">{{initiative.title}}
+            {{initiative.description}}
+          </div>
+        </div>
+        <div class='container' [attr.data-container-id]='"hold"' [dragula]='"embracements-bag"'>
+         <div *ngFor="#initiative of filteredInitiatives(embracementEnum.hold)"  [attr.data-embr-id]="initiative.id">{{initiative.title}}
+            {{initiative.description}}
+          </div>
+        </div> -->
+
+				<div>
+					Drop here for deletion
+					<div class='container' [attr.data-container-id]='"trash"'
+						[dragula]='"embracements-bag"'></div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+

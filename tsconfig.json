@@ -8,7 +8,8 @@
         "noLib": false,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "sourceMap": true
+        "sourceMap": true,
+        "preserveConstEnums": true
     },
     "exclude": [
         "node_modules",

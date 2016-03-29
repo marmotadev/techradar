@@ -25,24 +25,38 @@ declare var jQuery: JQueryStatic;
     selector: 'radar2',
     moduleId: module.id,
     template: '<div class="radarChart"></div><content></content>',
-//    templateUrl: './radar2.component.html',
+    //    templateUrl: './radar2.component.html',
     //    styleUrls: ['./app.css'],
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, RadarComponent2, QuadrantListComponent]
 
 })
 export class RadarComponent2 implements OnInit, AfterViewInit {
     @Input() area: string;
-    @Input() data: any[];
+    _data: any[];
 
     constructor(private manageService: ManageService, private radarService: RadarService) { ; };
 
     ngOnInit() {
         console.log('on init radarcomp2', this.area);
     }
-    hack(val) {
-        return Array.from(val);
+    @Input()
+    set data(d) {
+        this._data = d;
+        this.dataOnChanged();
+    }
+    get data() {
+        return this._data;
+    }
+    dataOnChanged() {
+        console.warn('Data changed!');
+        this.buildRadar();
     }
     buildRadar() {
+        if (this.data === null || typeof (this.data) === 'undefined') {
+            console.warn('no data, no radar');
+            return null;
+        }
+
         //      console.log('building radar');
         //      var tts = require('tooltipster/js/jquery.tooltipster.js');
         //      console.log('tts', tts);
@@ -75,20 +89,26 @@ export class RadarComponent2 implements OnInit, AfterViewInit {
             color: color,
             quadrant: 'techniques'
         };
-        console.log('last breath', this.data);
-        RadarChart('.radarChart', radarChartOptions, this.transformDataForRadar(this.data));
+        console.log('Moment before initializing js radar', this.data);
+        RadarChart('.radarChart', radarChartOptions, this.data);
+        //        RadarChart('.radarChart', radarChartOptions, this.transformDataForRadar(this.data));
     }
 
     transformDataForRadar(data: any[]) {
         //            { id: 1, title: 'CSS', quadrant: 'techniques', level: 'trial', newValue: true, number: 1 },
         var ret: any[] = [];
-        for (var lvl of this.data) {
-            console.log('transforming level', lvl);
-            for (var blip of lvl.blips) {
-                console.log('transforming blip', blip);
-                var retItem = { id: blip.id, title: blip.title, level: lvl.id, newValue: blip.movement === 'c'?true:false,
-                 number: blip.number, description: blip.description };
-                ret.push(retItem);
+        if (this.data !== null && typeof (this.data) !== 'undefined') {
+            console.log('will examinate next', this.data);
+            for (var lvl of this.data) {
+                console.log('transforming level', lvl);
+                for (var blip of lvl.blips) {
+                    console.log('transforming blip', blip);
+                    var retItem = {
+                        id: blip.id, title: blip.title, level: lvl.id, newValue: blip.movement === 'c' ? true : false,
+                        number: blip.number, description: blip.description
+                    };
+                    ret.push(retItem);
+                }
             }
         }
         return ret;

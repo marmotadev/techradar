@@ -16,6 +16,7 @@ import {ManageService} from '../../shared/services/manage.service';
 import {RadarService} from '../../shared/services/radar.service';
 import {Areas} from '../../shared/model/areas';
 import {Initiative} from '../../shared/model/initiative';
+import {Embracement} from '../../shared/model/embracement';
 
 declare var jQuery: JQueryStatic;
 
@@ -38,15 +39,37 @@ export class QuadrantListComponent implements OnInit, AfterViewInit {
     @Input() area: string;
     @Input() data: any[] = [];
 
+
     constructor(private manageService: ManageService, private radarService: RadarService) { ; };
 
     ngOnInit() {
         console.log('selected area', this.area);
-        
+        console.log('quadrant-list data', this.data);
     }
+    /**
+     * Transforms array of blips to partitions of blips.
+     */
+    partitionByLevel(data: Initiative[]) {
+        let rawData = data;
+        let ret = [];
+        var idx = 1;
+        for (var level of [Embracement.adopt, Embracement.trial, Embracement.assess, Embracement.hold]) {
+            let blips: any[] = rawData.filter(x => x.level === Embracement[level]).map(i => { i.order = idx++; return i; });
+            ret.push({ title: Embracement[level], blips: blips });
+        }
+        return ret;
+    }
+    ngOnChanges(changeRecord: any) {
+        if (this.data !== null && typeof (this.data) !== 'undefined') {
+            this.data = this.partitionByLevel(this.data);
 
+        }
+        console.log('change', changeRecord);
+
+    }
     ngAfterViewInit() {
-//        console.log('after view init', this.quadrant);
+        //        console.log('after view init', this.quadrant);
         ;
+        console.log('quadrant-list data', this.data);
     }
 }

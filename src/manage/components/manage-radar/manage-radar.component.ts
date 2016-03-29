@@ -10,23 +10,31 @@ import {ItemFormComponent} from '../item-form/item-form-component';
 import {Initiative} from '../../../shared/model/initiative';
 import {Areas} from '../../../shared/model/areas';
 import {Embracement} from '../../../shared/model/embracement';
+import {Radar} from '../../../shared/model/radar';
 import {DragulaService, Dragula} from 'ng2-dragula/ng2-dragula';
 import {EmbracementComponent} from '../embracement.component';
+import {SelectAreaComponent} from '../../../radar/components/select-area/select-area.component';
 
 @Component({
-    selector: 'unit-detail',
-    templateUrl: '/manage/components/unit-detail/unit-detail.component.html',
-    styleUrls: ['/manage/components/unit-detail/unit-detail.component.css'],
+    selector: 'manage-radar',
+    templateUrl: '/manage/components/manage-radar/manage-radar.component.html',
+    //    styleUrls: ['/manage/components/unit-detail/unit-detail.component.css'],
     //  inputs: ['unit', 'showAddNew'],
     //  directives: [ItemFormComponent],
-    directives: [ItemFormComponent, Dragula, EmbracementComponent],
+    directives: [ItemFormComponent, Dragula, EmbracementComponent, SelectAreaComponent],
     viewProviders: [DragulaService]
 })
 
 
-export class UnitDetailComponent implements OnInit {
+export class ManageRadarComponent implements OnInit {
     public areasEnum = Areas;
     public embracementEnum = Embracement;
+
+    radar: Radar;
+    radarId: number;
+
+
+
     @Input() unit: OrganizationUnit;
     category: string;
     initiatives: Initiative[];
@@ -60,6 +68,30 @@ export class UnitDetailComponent implements OnInit {
             this.onOut(value.slice(1));
         });
     }
+    loadRadarData() {
+        return this._radarService.getRadar(this.radarId).then(r => this.radar = r);
+    }
+    ngOnInit() {
+        this.radarId = +this._routeParams.get('id');
+
+        this.loadRadarData();
+
+        //        this.selectedArea = this._routeParams.get('category');
+        //        this.selectedArea = Areas[this.selectedArea];
+        //        console.log('current area:', this.selectedArea);
+
+        //        if (this.selectedArea !== 'undefined' && this.selectedArea !== null)
+        //            this.reloadInitiatives(this.selectedArea);
+        //        this._heroService.getUnit(id).then(u => this.unit = u);
+
+    }
+
+    areaSelected(event) {
+        console.log('Area selected', event);
+        this.selectedArea = Areas[Areas[event]];
+        //        console.log('ViewRadarComponent: route to ', this.selectedArea);
+        //        this._router.navigate(['ViewRadar', { area: event }]);
+    }
 
     public showAddNewForm() {
         this.showAddNew = true;
@@ -92,37 +124,24 @@ export class UnitDetailComponent implements OnInit {
             return [];
         }
     }
-    reloadInitiatives(category: string) {
-
-
-        console.log('Will reload initiatives');
-        this._radarService.getInitiatives(Areas[category]).then(initiatives => {
-            this.initiatives = initiatives;
-            this.initiatives2[Embracement.adopt] = this.filteredInitiatives(Embracement.adopt, initiatives);
-            this.initiatives2[Embracement.assess] = this.filteredInitiatives(Embracement.assess, initiatives);
-            this.initiatives2[Embracement.trial] = this.filteredInitiatives(Embracement.trial, initiatives);
-            this.initiatives2[Embracement.hold] = this.filteredInitiatives(Embracement.hold, initiatives);
-            console.log('initiatives reloaded', this.initiatives);
+    reloadInitiatives(area: Areas) {
+        console.log('Will reload initiatives', area);
+        this.loadRadarData().then(r => {
+            this.initiatives = r.blips;
+            console.log('reached block', r);
         });
-    }
-
-    ngOnInit() {
-        let id = +this._routeParams.get('id');
-        this.category = this._routeParams.get('category');
-        this.selectedArea = Areas[this.category];
-        console.log('current area:', this.selectedArea);
-
-        if (this.category !== 'undefined' && this.category !== null)
-            this.reloadInitiatives(this.category);
-        this._heroService.getUnit(id).then(u => this.unit = u);
-
-    }
-    openCategory(id: number, areaStr: string) {
-        this._router.navigate(['ItemsInCategoryDetail', { id: this.unit.id, category: areaStr }]);
+        //        this._radarService.getInitiatives(Areas[area]).then(initiatives => {
+        ////            this.initiatives = initiatives;
+        //            this.initiatives2[Embracement.adopt] = this.filteredInitiatives(Embracement.adopt, initiatives);
+        //            this.initiatives2[Embracement.assess] = this.filteredInitiatives(Embracement.assess, initiatives);
+        //            this.initiatives2[Embracement.trial] = this.filteredInitiatives(Embracement.trial, initiatives);
+        //            this.initiatives2[Embracement.hold] = this.filteredInitiatives(Embracement.hold, initiatives);
+        //            console.log('initiatives reloaded', this.initiatives);
+        //        });
     }
     isCategorySelected(): boolean {
-        //console.log('Category selected: ' + this.category);
-        if (this.category) {
+        //console.log('Category selected: ' + this.selectedArea);
+        if (this.selectedArea) {
 
             return true;
         } else {
@@ -143,10 +162,10 @@ export class UnitDetailComponent implements OnInit {
     initiativeAdded(event) {
         console.log('initiativeAdded(): Got event:', event);
         this.showAddNew = false;
-        this.reloadInitiatives(this.category);
+        this.reloadInitiatives(this.selectedArea);
     }
     initiativeDeleted(event) {
-        this.reloadInitiatives(this.category);
+        this.reloadInitiatives(this.selectedArea);
     }
     // drag & drop callbacks
     private onDrag(args) {
@@ -156,8 +175,8 @@ export class UnitDetailComponent implements OnInit {
 
     private onDrop(args) {
         let [e, target, source, above] = args;
-//        e = 0;
-//        source = null;
+        //        e = 0;
+        //        source = null;
         console.log('target details', target);
         console.log('Shit got dropped:', args[0].getAttribute('data-embr-id'), target.getAttribute('data-container-id'));
 
@@ -179,9 +198,9 @@ export class UnitDetailComponent implements OnInit {
 
             var embracementId: string = target.getAttribute('data-container-id');
             var embr: Embracement = Embracement[embracementId];
-            this._radarService.moveInitiative(args[0].getAttribute('data-embr-id'), 
-                embr, 
-                above?above.getAttribute('data-embr-id'):null);
+            this._radarService.moveInitiative(args[0].getAttribute('data-embr-id'),
+                embr,
+                above ? above.getAttribute('data-embr-id') : null);
         }
     }
 

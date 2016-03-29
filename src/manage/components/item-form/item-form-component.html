@@ -3,7 +3,7 @@
   <form>
     <div class="form-group">
       <label for="name">Name</label>
-      <input type="text" class="form-control" required [(ngModel)]="model.name" >
+      <input type="text" class="form-control" required [(ngModel)]="model.title" >
     </div>
 
     <div class="form-group">
@@ -14,7 +14,7 @@
 
     <div class="form-group">
       <label for="embracement">Embracement</label>
-      <select [(ngModel)]="model.embracement" class="form-control">
+      <select [(ngModel)]="model.level" class="form-control">
         <option [value]="embracementEnum.assess">Assess</option>
         <option [value]="embracementEnum.trial">Trial</option>
         <option [value]="embracementEnum.adopt">Adopt</option>
@@ -23,7 +23,7 @@
     </div>
     <div class="form-group">
       <div class="btn-group" data-toggle="buttons">
-        <input type="checkbox" [(ngModel)]="model.nInitiative" >
+        <input type="checkbox" [(ngModel)]="model.isNew" >
         <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
           Is it a new initiative?
         </button>

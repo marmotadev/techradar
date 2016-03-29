@@ -6,7 +6,15 @@
   </div>
 </div>
 
-
+<div>
+	My radars: 
+	<div *ngFor="#radar of userRadars" class="col-1-4"
+		(click)="manageRadar(radar)">
+		<div class="">
+			<h4>{{radar.title}}</h4>
+		</div>
+	</div>
+</div>
 <!--
 <form (submit)="addName()">
   <input [(ngModel)]="newName" placeholder="Awesome Computer Scientist">

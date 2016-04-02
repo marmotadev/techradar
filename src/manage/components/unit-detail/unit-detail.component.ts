@@ -156,8 +156,8 @@ export class UnitDetailComponent implements OnInit {
 
     private onDrop(args) {
         let [e, target, source, above] = args;
-//        e = 0;
-//        source = null;
+        //        e = 0;
+        //        source = null;
         console.log('target details', target);
         console.log('Shit got dropped:', args[0].getAttribute('data-embr-id'), target.getAttribute('data-container-id'));
 
@@ -179,9 +179,9 @@ export class UnitDetailComponent implements OnInit {
 
             var embracementId: string = target.getAttribute('data-container-id');
             var embr: Embracement = Embracement[embracementId];
-            this._radarService.moveInitiative(args[0].getAttribute('data-embr-id'), 
-                embr, 
-                above?above.getAttribute('data-embr-id'):null);
+            this._radarService.moveInitiative(args[0].getAttribute('data-embr-id'),
+                embr,
+                above ? above.getAttribute('data-embr-id') : null);
         }
     }
 

@@ -20,8 +20,9 @@ import {ViewRadarComponent} from './view-radar.component';
 })
     //todo: we need to route to the same component here, and control just internally when to go deeper
 @RouteConfig([
-  { path: '/:area', name: 'ViewRadar',  component: ViewRadarComponent},
-  { path: '/', name: 'RadarLandingPage', component: ViewRadarComponent, useAsDefault: true}
+  { path: '/', name: 'RadarLandingPage', component: ViewRadarComponent, useAsDefault: true},
+  { path: '/:radarId', name: 'ViewRadarAreas',  component: ViewRadarComponent},
+  { path: '/:radarId/:area', name: 'ViewRadar',  component: ViewRadarComponent},
 ])
 export class RadarRouterComponent {
   constructor(private _router: Router) {;}

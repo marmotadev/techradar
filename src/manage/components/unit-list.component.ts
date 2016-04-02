@@ -23,7 +23,7 @@ import {DragulaService, Dragula} from 'ng2-dragula/ng2-dragula';
 
 export class UnitListComponent implements OnInit {
     newName: string;
-    public units: OrganizationUnit[] = [];
+//    public units: OrganizationUnit[] = [];
     public userRadars: any[] = [];
 
     constructor(public nameListService: NameListService, private _radarService: RadarService,
@@ -39,17 +39,17 @@ export class UnitListComponent implements OnInit {
         return false;
     }
     ngOnInit() {
-        this._heroService.getOrganizationUnits()
-            .then(units => this.units = units);
+//        this._heroService.getOrganizationUnits()
+//            .then(units => this.units = units);
         let user = 'user1'; //XXX replace from global context
         this._radarService.findRadars(user)
             .then(radars => this.userRadars = radars);
     }
 
-    gotoOrganizationUnit(unit: OrganizationUnit) {
-        let link = ['UnitDetail', { id: unit.id }];
-        this._router.navigate(link);
-    }
+//    gotoOrganizationUnit(unit: OrganizationUnit) {
+//        let link = ['UnitDetail', { id: unit.id }];
+//        this._router.navigate(link);
+//    }
     manageRadar(radar: Radar) {
         let link = ['ManageRadar', { id: radar.id }];
         this._router.navigate(link);            

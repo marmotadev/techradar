@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Radar {
 	@Id
@@ -19,7 +21,10 @@ public class Radar {
 	@ManyToOne
 	private RadarGroup userGroup;
 	private String userLogin;
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
+
+    @JsonBackReference
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE,
+			CascadeType.DETACH }, mappedBy="radar")
 	private List<Blip> blips;
 
 	public Long getId() {

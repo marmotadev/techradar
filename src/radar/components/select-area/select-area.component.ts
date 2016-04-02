@@ -32,14 +32,14 @@ export class SelectAreaComponent implements OnInit {
     }
     ngOnInit() {
 //        this.selectedArea = Areas[this.category];
-        console.log('Now current:', this.selectedArea);
+        console.log('SelectAreaComponent on init, current:', this.selectedArea);
 
 //        if (this.category !== 'undefined' && this.category !== null)
 
     }
     openCategory(areaStr: string) {
         this.selectedArea = areaStr;
-        console.log('Now current:', this.selectedArea);
+        console.log('SelectAreaComponent now current:', this.selectedArea);
         this.onSelected.emit(areaStr);
     }
     isCategorySelected(): boolean {

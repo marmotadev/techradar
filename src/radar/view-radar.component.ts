@@ -16,7 +16,12 @@ import {QuadrantListComponent} from './components/quadrant-list.component';
 @Component({
     selector: 'view-radar',
     moduleId: module.id,
-    templateUrl: './view-radar.component.html',
+    template: `
+<select-area (onSelected)="onAreaSelected($event)"></select-area>
+Radar view for {{selectedArea}}
+<radar2 *ngIf="selectedArea" [area]="selectedArea" [data]="areaData">adddddddddddddd</radar2>
+<quadrant-list [area]="selectedArea" [data]="areaData"></quadrant-list>`,
+
     styleUrls: ['./view-radar.component.css'],
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, RadarComponent2, SelectAreaComponent, QuadrantListComponent]
 
@@ -26,29 +31,31 @@ import {QuadrantListComponent} from './components/quadrant-list.component';
 //])
 export class ViewRadarComponent implements OnInit {
 
-    selectedArea: string;
+    selectedArea: string = Areas[Areas.techniques];
     areaData: any[];
+    radarId: number;
 
-    areaSelected(event) {
+    onAreaSelected(event) {
         console.log('ViewRadarComponent: Area selected in landing page', event);
         this.selectedArea = Areas[Areas[event]];
         console.log('ViewRadarComponent: route to ', this.selectedArea);
-        this._router.navigate(['ViewRadar', { area: event }]);
+        this._router.navigate(['ViewRadar', { area: event, radarId: this.radarId }]);
     }
 
     constructor(public nameListService: NameListService, private _radarService: RadarService,
         private _heroService: ManageService, private _router: Router,
         private _routeParams: RouteParams) {
-
+        this.radarId = Number(this._routeParams.get('radarId'));
         this.selectedArea = this._routeParams.get('area');
         console.log('selected ', this.selectedArea);
         if (this.selectedArea !== null && this.selectedArea.length !== 0) {
-            var ob = _radarService.getRadarData(Areas[this.selectedArea])
+            let area: Areas = Areas[this.selectedArea];
+            let ob = _radarService.getRadarData(area, this.radarId)
                 .then(returnedData => {
                     console.log('data from service:', returnedData);
                     this.areaData = returnedData;
                 });
-            console.log('observer/promise', ob);
+//            console.log('observer/promise', ob);
         }
     }
 

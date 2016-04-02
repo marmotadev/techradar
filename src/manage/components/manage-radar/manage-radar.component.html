@@ -1,15 +1,19 @@
-Radar management page (TODO: remove this line)
 <div *ngIf="radar">
 	<h2>{{radar.title}}</h2>
+	<div *ngIf="selectedArea !== null">
+		<a [routerLink]="['/RadarRouter/ViewRadar', {radarId: radarId, area: areasEnum[selectedArea]}]">View radar</a>
+	</div>
+	<div *ngIf="selectedArea === null">
+		<a [routerLink]="['/RadarRouter/ViewRadarAreas', {radarId: radarId}]">View radar areas</a>
+	</div>
+	<select-area (onSelected)="onAreaSelected($event)"></select-area>
 
-	<select-area (onSelected)="areaSelected($event)"></select-area>
-
-	<div *ngIf="selectedArea">
-		<h2>Area: {{selectedArea}}</h2>
+	<div *ngIf="selectedArea !== null">
+		<!-- <h2>Area: {{selectedArea}}</h2> -->
 		<div *ngIf="showAddNew">
 			<!--<div *ngFor="#cat of-->
 			<item-form (onCancel)="closeAddNewForm()"
-				(onAdd)="initiativeAdded($event)" [area]="selectedArea"></item-form>
+				(onAdd)="initiativeAdded($event)" [area]="selectedArea" [radar]="radar"></item-form>
 
 		</div>
 		<div *ngIf="!showAddNew">

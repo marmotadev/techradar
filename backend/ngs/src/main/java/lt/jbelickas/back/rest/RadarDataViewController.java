@@ -33,7 +33,7 @@ public class RadarDataViewController {
 	private static final Logger logger = LoggerFactory.getLogger(RadarDataViewController.class);
 
 	@Autowired
-	private BlipDataRepository repository;
+	private BlipDataRepository blipRepo;
 
 	@Autowired
 	private RadarGroupRepository groupRepo;
@@ -53,7 +53,7 @@ public class RadarDataViewController {
 	// logger.debug("batch status started");
 	// Batch batch = null;
 	// try {
-	// List<Batch> batches = repository.findById(new PageRequest(0, 1),
+	// List<Batch> batches = blipRepo.findById(new PageRequest(0, 1),
 	// batchId);
 	// if(!batches.isEmpty()){
 	// batch = batches.get(0);
@@ -78,8 +78,8 @@ public class RadarDataViewController {
 			item = radarRepo.getById(radarId);
 			if (item == null) {
 				response.sendError(HttpServletResponse.SC_NOT_FOUND);
-			}
-			else {
+			} else {
+//				item.getBlips();
 				logger.debug("Radar found {}", item);
 			}
 		} catch (Exception e) {
@@ -89,16 +89,21 @@ public class RadarDataViewController {
 		return item;
 	}
 
-	@RequestMapping(value = "/radar/view/{area}", method = RequestMethod.GET)
+	@RequestMapping(value = "/radar/{id}/view/{area}", method = RequestMethod.GET)
 	// @JsonView(BlipView.class)
-	public List<Blip> list(@PathVariable Area area, HttpServletResponse response) throws IOException {
-		logger.debug("Request for data {}", area);
+	public List<Blip> list(@PathVariable("id") Long radarId, @PathVariable Area area, HttpServletResponse response)
+			throws IOException {
+		logger.debug("Request for data in radar {} and area {}", radarId, area);
 		List<Blip> items = null;
 		try {
-			items = repository.findByArea(area);
+			if (!radarRepo.exists(radarId)) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND, "radar " + radarId);
+			} else {
+				items = blipRepo.findByRadar_IdAndArea(radarId, area);
+			}
 		} catch (Exception e) {
-			logger.error("Exception while getting newest batches", e);
-			response.sendError(HttpServletResponse.SC_ACCEPTED, e.getMessage());
+			logger.error("Exception", e);
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
 		}
 		return items;
 	}
@@ -106,23 +111,27 @@ public class RadarDataViewController {
 	@RequestMapping(value = "/radar/save", method = RequestMethod.POST, consumes = "application/json")
 	public void save(@RequestBody SaveBlipRequest saveBlip, HttpServletResponse response) throws IOException {
 		Blip blip = saveBlip.getBlip();
-		logger.info("Request for data {}", blip);
+		logger.info("Request to save {}", saveBlip);
 		try {
+			if (saveBlip == null || saveBlip.getBlip() == null || saveBlip.getRadarId() == null)
+				throw new IllegalArgumentException();
 			Radar radar = radarRepo.getById(saveBlip.getRadarId());
-			
-			
-			if (blip.getId() == 0)
-				blip.setId(null);
-			if (blip.getDateCreated() == null)
-				blip.setDateCreated(new Date());
-			
-			radar.getBlips().add(blip);
-			radarRepo.save(radar);
-//			repository.saveAndFlush(blip);
+//
+//			if (blip.getId() == 0)
+//				blip.setId(null);
+//			if (blip.getDateCreated() == null)
+//				blip.setDateCreated(new Date());
+			blip.setRadar(radar);
+//			radar.getBlips().add(blip);
+//			radarRepo.save(radar);
+			 blipRepo.saveAndFlush(blip);
 			response.sendError(HttpServletResponse.SC_CREATED);
+		} catch (IllegalArgumentException e) {
+			// logger.error("Exception", e);
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
 		} catch (Exception e) {
-			logger.error("Exception while getting newest batches", e);
-			response.sendError(HttpServletResponse.SC_ACCEPTED, e.getMessage());
+			logger.error("Exception", e);
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
 		}
 	}
 
@@ -132,17 +141,17 @@ public class RadarDataViewController {
 		try {
 			// if (blip.getId() == 0)
 			// blip.setId(null);
-			Blip blip = repository.findOne(blipReq.getBlipId());
+			Blip blip = blipRepo.findOne(blipReq.getBlipId());
 			logger.debug("Original: {}", blip);
 			blip.setLevel(blipReq.getLevel());
 			// blipReq.getBlip().setLevel(blipReq.getLevel());
 			logger.debug("Changed: {}", blip);
 			Long aboveId = blipReq.getMoveAboveThisId();
 			if (aboveId != null) {
-				Blip aboveOne = repository.findOne(aboveId);
+				Blip aboveOne = blipRepo.findOne(aboveId);
 			}
 			// aboveOne.get
-			repository.saveAndFlush(blip);
+			blipRepo.saveAndFlush(blip);
 			response.sendError(HttpServletResponse.SC_OK);
 		} catch (Exception e) {
 			logger.error("Exception while getting newest batches", e);
@@ -154,15 +163,20 @@ public class RadarDataViewController {
 	public void delete(@PathVariable("id") Long blipId, HttpServletResponse response) throws IOException {
 		logger.info("Delete blip {}", blipId);
 		try {
-			repository.delete(blipId);
+			Blip blip = blipRepo.findOne(blipId);
+//			blip.get
+//			blip.g
+			blipRepo.delete(blipId);
 			;
-			repository.flush();
+			blipRepo.flush();
 			response.sendError(HttpServletResponse.SC_OK);
 		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
+		} catch (IllegalArgumentException e) {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
 		} catch (Exception e) {
-			logger.error("Exception while getting newest batches", e);
-			response.sendError(HttpServletResponse.SC_ACCEPTED, e.getMessage());
+			logger.error("Exception", e);
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
 		}
 	}
 

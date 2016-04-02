@@ -75,7 +75,7 @@ export class RadarService {
     public addInitiative(i: Initiative, area: Areas, radarId: number): Promise<void> {
 
         i.area = area;
-        let body = JSON.stringify(i);
+        let body = JSON.stringify({ blip: i, radarId: radarId });
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         console.log('Trying to save(addInitiative)', body);
@@ -107,21 +107,30 @@ export class RadarService {
             ;
     }
 
-    public getInitiatives(area: Areas) {
+    public getInitiatives(area: Areas, radarId: number) {
         console.log('getInitiatives ', area);
-        return this.getRadarData(area);
+        return this.getRadarData(area, radarId);
     }
-    public getRadarData(area: Areas) {
+    public getRadarData(area: Areas, radarId: number): Promise<Initiative[]> {
+        if (typeof (radarId) === 'undefined' || radarId === null)
+            throw new Error('radarId missing');
         console.log('RadarService.getRadarData()', area);
         var authHeader = new Headers();
         //                    authHeader.append('Authorization', 'Basic ' + Base64.fromByteArray('admin' + '                 
-        var rr = this.http.get(this._serviceUrl + '/view/' + Areas[area], { headers: authHeader })
-            .map(res => { console.log('Returning data from getRadarData()', res, res.json()); return res.json(); })
+        var rr = this.http.get(this._serviceRoot + '/radar/' + radarId + '/view/' + Areas[area], { headers: authHeader })
+            .map(res => {
+                //console.log('Returning data from getRadarData()', res, res.json()); 
+                return res.json();
+            })
             .map(s => {
-                console.log('secondary', s);
                 let len = s.length;
                 var idx = 1;
-                return s.map(i => { i.order = idx++; console.log('i', i); return i; });
+                return s.map(i => {
+                    i.order = idx++;
+                    i.level = Embracement[i.level];
+                    //                    console.log('i', i); 
+                    return i;
+                });
             })
             .catch(this.handleError)
             ;
@@ -145,7 +154,7 @@ export class RadarService {
         //                    authHeader.append('Authorization', 'Basic ' + Base64.fromByteArray('admin' + '                 
         var rr = this.http.get(this._serviceRoot + '/radar/' + id, { headers: authHeader })
             .map(res => {
-                console.log('Returning data from findRadras()', res, <Radar[]>res.json());
+                console.log('Returning data from findRadars()');//, res, <Radar[]>res.json());
                 return res.json();
             })
             .catch(this.handleError)

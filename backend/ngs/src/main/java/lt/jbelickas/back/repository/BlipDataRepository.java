@@ -12,7 +12,7 @@ import lt.jbelickas.back.domain.Blip;
 public interface BlipDataRepository extends JpaRepository<Blip, Long>  {
     
 //    @Query("SELECT distinct b FROM Batch b join fetch b.notifications where b.area = :area")
-    List<Blip> findByArea(@Param("area")Area area);
+    List<Blip> findByRadar_IdAndArea(@Param("radarId")Long radarId, @Param("area")Area area);
     
     @Query("SELECT b FROM Radar r LEFT JOIN r.blips b WHERE r.userLogin = :login")
     List<Blip> findByUserLogin(@Param("login")String login);

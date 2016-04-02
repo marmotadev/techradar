@@ -23,7 +23,7 @@ import {UnitListComponent} from './unit-list.component';
 @RouteConfig([
     
   { path: '/radar/:id', name: 'ManageRadar',  component: ManageRadarComponent},
-  { path: 'units', name: 'Home',  component: UnitListComponent, useAsDefault: true},
+  { path: './', name: 'Home',  component: UnitListComponent, useAsDefault: true},
 ///  { path: '/about', name: 'About', component: AboutComponent },
   { path: '/unit/:id', name: 'UnitDetail', component: UnitDetailComponent },
 //  {path: '/unitDetail/:id', name: 'UnitDetail', component: UnitDetailComponent},
@@ -47,9 +47,9 @@ export class ManageComponent implements OnInit {
     this._heroService.getOrganizationUnits().then(units => this.units = units);
   }
 
-  gotoOrganizationUnit(unit: OrganizationUnit) {
-    let link = ['UnitDetail', { id: unit.id }];
-    this._router.navigate(link);
-  }
+//  gotoOrganizationUnit(unit: OrganizationUnit) {
+//    let link = ['UnitDetail', { id: unit.id }];
+//    this._router.navigate(link);
+//  }
 }
 

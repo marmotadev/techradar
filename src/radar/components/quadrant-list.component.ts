@@ -1,5 +1,5 @@
 /// <reference path="../../../typings/jquery/jquery.d.ts" />
-import {Input, Component, OnInit, AfterViewInit} from 'angular2/core';
+import {Input, Component, OnInit, AfterViewInit, OnChanges, SimpleChange} from 'angular2/core';
 //import {ROUTER_DIRECTIVES, RouteConfig} from 'angular2/router';
 //import {Router} from 'angular2/router';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
@@ -34,16 +34,18 @@ declare var jQuery: JQueryStatic;
 //  { path: 'units', name: 'Home',  component: UnitListComponent, useAsDefault: true},
 //])
 
-export class QuadrantListComponent implements OnInit, AfterViewInit {
+export class QuadrantListComponent implements OnInit, AfterViewInit, OnChanges {
 
     @Input() area: string;
     @Input() data: any[] = [];
 
 
-    constructor(private manageService: ManageService, private radarService: RadarService) { ; };
+    constructor(private manageService: ManageService, private radarService: RadarService) {
+        console.log('quadrant-list constructor');
+    };
 
     ngOnInit() {
-        console.log('selected area', this.area);
+        console.log('quadrant-list area', this.area);
         console.log('quadrant-list data', this.data);
     }
     /**
@@ -52,24 +54,37 @@ export class QuadrantListComponent implements OnInit, AfterViewInit {
     partitionByLevel(data: Initiative[]) {
         let rawData = data;
         let ret = [];
-        var idx = 1;
-        for (var level of [Embracement.adopt, Embracement.trial, Embracement.assess, Embracement.hold]) {
-            let blips: any[] = rawData.filter(x => x.level === Embracement[level]).map(i => { i.order = idx++; return i; });
-            ret.push({ title: Embracement[level], blips: blips });
+        let idx = 1;
+        console.trace('size of raw data to partition', rawData.length, data);
+        for (let level of [Embracement.adopt, Embracement.trial, Embracement.assess, Embracement.hold]) {
+            let blips: any[] = rawData
+                .filter(x => {
+                    //console.trace('filtered item level', x.level,'and', level);
+                    return x.level === level;
+                })
+                .map(i => {
+                    i.order = idx++; return i;
+                });
+            let title = Embracement[level];
+            console.trace('blips filtered', blips.length, title);
+            ret.push({ title: title, blips: blips });
         }
         return ret;
     }
-    ngOnChanges(changeRecord: any) {
+    ngOnChanges(changes: { [propName: string]: SimpleChange }) {
+        console.debug('quadrant-list: ngOnChanges - myProp = ' + changes['data'].currentValue);
+
         if (this.data !== null && typeof (this.data) !== 'undefined') {
+            console.log('data is set for quadrant, proceeding to partition');
             this.data = this.partitionByLevel(this.data);
 
         }
-        console.log('change', changeRecord);
+        //        console.log('change recieved by quadrant-list', changeRecord);
 
     }
     ngAfterViewInit() {
         //        console.log('after view init', this.quadrant);
         ;
-        console.log('quadrant-list data', this.data);
+        //        console.log('quadrant-list data', this.data);
     }
 }

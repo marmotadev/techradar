@@ -2,6 +2,7 @@ import {Component, OnInit, Input} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
 //import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 import {Router} from 'angular2/router';
+import {RouterLink} from 'angular2/router';
 //import {Hero} from './hero';
 import {ManageService} from '../../../shared/services/manage.service';
 import {RadarService} from '../../../shared/services/radar.service';
@@ -21,10 +22,9 @@ import {SelectAreaComponent} from '../../../radar/components/select-area/select-
     //    styleUrls: ['/manage/components/unit-detail/unit-detail.component.css'],
     //  inputs: ['unit', 'showAddNew'],
     //  directives: [ItemFormComponent],
-    directives: [ItemFormComponent, Dragula, EmbracementComponent, SelectAreaComponent],
+    directives: [ItemFormComponent, Dragula, EmbracementComponent, SelectAreaComponent, RouterLink],
     viewProviders: [DragulaService]
 })
-
 
 export class ManageRadarComponent implements OnInit {
     public areasEnum = Areas;
@@ -74,7 +74,9 @@ export class ManageRadarComponent implements OnInit {
     ngOnInit() {
         this.radarId = +this._routeParams.get('id');
 
-        this.loadRadarData();
+        this.loadRadarData().then(r => {
+//            console.log('reloaded');
+        });
 
         //        this.selectedArea = this._routeParams.get('category');
         //        this.selectedArea = Areas[this.selectedArea];
@@ -86,9 +88,11 @@ export class ManageRadarComponent implements OnInit {
 
     }
 
-    areaSelected(event) {
+    onAreaSelected(event: string) {
         console.log('Area selected', event);
-        this.selectedArea = Areas[Areas[event]];
+        this.selectedArea = Areas[event];
+        console.log('Area selected', this.selectedArea);
+        this.reloadInitiatives();
         //        console.log('ViewRadarComponent: route to ', this.selectedArea);
         //        this._router.navigate(['ViewRadar', { area: event }]);
     }
@@ -102,7 +106,7 @@ export class ManageRadarComponent implements OnInit {
     filteredInitiatives(embracement: Embracement, initiatives5: Initiative[]) {
         function strEnum(enumType: any, value: any) {
             let normalized = value;
-            if (typeof (normalized) === 'number')
+            if (typeof (normalized) === 'string')
                 normalized = enumType[value];
             return normalized;
         }
@@ -124,20 +128,21 @@ export class ManageRadarComponent implements OnInit {
             return [];
         }
     }
-    reloadInitiatives(area: Areas) {
+    reloadInitiatives() {
+        let area:Areas = this.selectedArea;
         console.log('Will reload initiatives', area);
         this.loadRadarData().then(r => {
             this.initiatives = r.blips;
             console.log('reached block', r);
         });
-        //        this._radarService.getInitiatives(Areas[area]).then(initiatives => {
-        ////            this.initiatives = initiatives;
-        //            this.initiatives2[Embracement.adopt] = this.filteredInitiatives(Embracement.adopt, initiatives);
-        //            this.initiatives2[Embracement.assess] = this.filteredInitiatives(Embracement.assess, initiatives);
-        //            this.initiatives2[Embracement.trial] = this.filteredInitiatives(Embracement.trial, initiatives);
-        //            this.initiatives2[Embracement.hold] = this.filteredInitiatives(Embracement.hold, initiatives);
-        //            console.log('initiatives reloaded', this.initiatives);
-        //        });
+        this._radarService.getInitiatives(area, this.radarId).then(initiatives => {
+            //            this.initiatives = initiatives;
+            this.initiatives2[Embracement.adopt] = this.filteredInitiatives(Embracement.adopt, initiatives);
+            this.initiatives2[Embracement.assess] = this.filteredInitiatives(Embracement.assess, initiatives);
+            this.initiatives2[Embracement.trial] = this.filteredInitiatives(Embracement.trial, initiatives);
+            this.initiatives2[Embracement.hold] = this.filteredInitiatives(Embracement.hold, initiatives);
+            console.log('initiatives reloaded', this.initiatives);
+        });
     }
     isCategorySelected(): boolean {
         //console.log('Category selected: ' + this.selectedArea);
@@ -162,10 +167,10 @@ export class ManageRadarComponent implements OnInit {
     initiativeAdded(event) {
         console.log('initiativeAdded(): Got event:', event);
         this.showAddNew = false;
-        this.reloadInitiatives(this.selectedArea);
+        this.reloadInitiatives();
     }
     initiativeDeleted(event) {
-        this.reloadInitiatives(this.selectedArea);
+        this.reloadInitiatives();
     }
     // drag & drop callbacks
     private onDrag(args) {

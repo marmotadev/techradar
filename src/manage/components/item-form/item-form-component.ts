@@ -5,6 +5,7 @@ import {Initiative} from '../../../shared/model/initiative';
 import {Embracement} from '../../../shared/model/embracement';
 import {RadarService} from '../../../shared/services/radar.service';
 import {Areas} from '../../../shared/model/areas';
+import {Radar} from '../../../shared/model/radar';
 //import {DragulaService, Dragula} from 'ng2-dragula/ng2-dragula';
 
 @Component({
@@ -23,6 +24,7 @@ export class ItemFormComponent {
     model = this.buildModel();
     submitted = false;
     @Input() area: Areas;
+    @Input() radar: Radar;
     @Output() onCancel = new EventEmitter<string>();
     @Output() onAdd = new EventEmitter();
 
@@ -38,13 +40,14 @@ export class ItemFormComponent {
     get diagnostic() { return JSON.stringify(this.model); }
 
     addInitiative() {
-        var savePromise = this._radarService.addInitiative(this.model, this.area);
+        var savePromise = this._radarService.addInitiative(this.model, this.area, this.radar.id);
         savePromise.then(res => {
             console.log('Save finished, emitting event', [this.model, this.area]);
             this.onAdd.emit([this.model, this.area]);
         });
 //        this.closeForm();
-        this.model = this.buildModel();
+        //temporary disabled
+//        this.model = this.buildModel();
 
     }
     closeForm() {

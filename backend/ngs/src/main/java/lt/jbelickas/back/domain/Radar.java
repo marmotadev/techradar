@@ -1,5 +1,6 @@
 package lt.jbelickas.back.domain;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -22,6 +26,11 @@ public class Radar {
 	private RadarGroup userGroup;
 	private String userLogin;
 	private String publicId;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dateCreated;
+	@Temporal(TemporalType.TIMESTAMP)
+	@OrderBy()
+	private Date dateUpdated;
 
 	@JsonBackReference
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE,
@@ -76,9 +85,27 @@ public class Radar {
 		this.publicId = publicId;
 	}
 
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+
+	public Date getDateUpdated() {
+		return dateUpdated;
+	}
+
+	public void setDateUpdated(Date dateUpdated) {
+		this.dateUpdated = dateUpdated;
+	}
+
 	@Override
 	public String toString() {
 		return "Radar [id=" + id + ", title=" + title + ", userGroup=" + userGroup + ", userLogin=" + userLogin
-				+ ", publicId=" + publicId + ", blips=" + blips + "]";
+				+ ", publicId=" + publicId + ", dateCreated=" + dateCreated + ", dateUpdated=" + dateUpdated
+				+ ", blips=" + blips + "]";
 	}
+
 }

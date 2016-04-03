@@ -3,9 +3,8 @@
 <div *ngFor="#radar of userRadars"
 	class="panel panel-color panel-primary" (click)="manageRadar(radar)">
 	<div class="panel-heading">
-		<h3 class="panel-title">{{radar.title}}</h3>
-		<p class="panel-sub-title font-13 text-muted">Click on title to
-			select</p>
+		<h3 class="panel-title">{{radar.title}} <i class="material-icons dp48 navigate-to-radar-icon">navigate_next</i></h3>
+		<p class="panel-sub-title font-13 text-muted">Last update: {{radar.dateUpdated | date:'yy-MM-dd'}}</p>
 	</div>
 	<div class="panel-body">
 		<p>Belongs to group: {{radar.userGroup.title}}</p>

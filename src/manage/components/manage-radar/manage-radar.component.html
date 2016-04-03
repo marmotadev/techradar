@@ -1,5 +1,7 @@
 <div *ngIf="radar">
-	<h2 (click)="showEdit()">{{radar.title}}</h2>
+	<div class="block-header">
+		<h2 (click)="showEdit()">{{radar.title}}</h2>
+	</div>
 	public link: http://localhost:555/public/radar/{{radar.publicId}}
 	<div *ngIf="showTitleEditBox">
 		<input type="text" size="30" [(ngModel)]="radar.title" />
@@ -61,6 +63,7 @@
 									<div class='container' [attr.data-container-id]='"assess"'
 										[dragula]='"embracements-bag"'>
 
+										&nbsp;
 										<!-- ngRepeat: w in rpctrl.rpResult.list -->
 										<a class="lv-item" href=""
 											*ngFor="#initiative of initiatives2[embracementEnum.assess]"
@@ -87,6 +90,15 @@
 								</div>
 								<!--  close div bas cont -->
 							</div>
+						</div>
+					</div>
+					<!-- end of card -->
+					<!--  start of card -->
+					<div class="col-sm-6">
+						<!-- Recent Items -->
+						<div class="card">
+
+
 							<div class="card-header">
 								<h2>
 									Trial<small></small>
@@ -96,10 +108,11 @@
 
 								<!--  div based cont -->
 								<div class="listview">
-				
-									<div class='container' [attr.data-container-id]='"trial"'
-					[dragula]='"embracements-bag"'>
 
+									<div class='container' [attr.data-container-id]='"trial"'
+										[dragula]='"embracements-bag"'>
+
+										&nbsp;
 										<!-- ngRepeat: w in rpctrl.rpResult.list -->
 										<a class="lv-item" href=""
 											*ngFor="#initiative of initiatives2[embracementEnum.trial]"
@@ -128,43 +141,149 @@
 							</div>
 						</div>
 					</div>
+					<!--  end of card -->
+
+					<!--  start of card -->
+					<div class="col-sm-6">
+						<!-- Recent Items -->
+						<div class="card">
+
+
+							<div class="card-header">
+								<h2>
+									Adopt<small></small>
+								</h2>
+							</div>
+							<div class="card-body m-t-0">
+
+								<!--  div based cont -->
+								<div class="listview">
+
+
+									<div class='container' [attr.data-container-id]='"adopt"'
+										[dragula]='"embracements-bag"'>
+
+										&nbsp;
+										<!-- ngRepeat: w in rpctrl.rpResult.list -->
+										<a class="lv-item" href=""
+											*ngFor="#initiative of initiatives2[embracementEnum.adopt]"
+											[attr.data-embr-id]="initiative.id">
+											<div class="media">
+												<div class="pull-left">
+													<!-- <img class="lv-img-sm" data-ng-src="img/profile-pics/1.jpg"
+														alt="" src="img/profile-pics/1.jpg"> -->
+													<i class="material-icons md-36">donut_large</i>
+
+												</div>
+												<div class="media-body">
+													<div class="lv-title ng-binding">{{initiative.title}}
+													</div>
+													<small class="lv-small ng-binding">{{initiative.description}}</small>
+												</div>
+											</div>
+										</a>
+									</div>
+
+
+									<div class="clearfix"></div>
+
+								</div>
+								<!--  close div bas cont -->
+							</div>
+						</div>
+					</div>
+					<!--  end of card -->
+
+					<!--  start of card -->
+					<div class="col-sm-6">
+						<!-- Recent Items -->
+						<div class="card">
+
+
+							<div class="card-header">
+								<h2>
+									Hold<small></small>
+								</h2>
+							</div>
+							<div class="card-body m-t-0">
+
+								<!--  div based cont -->
+								<div class="listview">
+
+									<div class='container' [attr.data-container-id]='"hold"'
+										[dragula]='"embracements-bag"'>
+										&nbsp;
+										<!-- ngRepeat: w in rpctrl.rpResult.list -->
+										<a class="lv-item" href=""
+											*ngFor="#initiative of initiatives2[embracementEnum.hold]"
+											[attr.data-embr-id]="initiative.id">
+											<div class="media">
+												<div class="pull-left">
+													<!-- <img class="lv-img-sm" data-ng-src="img/profile-pics/1.jpg"
+														alt="" src="img/profile-pics/1.jpg"> -->
+													<i class="material-icons md-36">donut_large</i>
+
+												</div>
+												<div class="media-body">
+													<div class="lv-title ng-binding">{{initiative.title}}
+													</div>
+													<small class="lv-small ng-binding">{{initiative.description}}</small>
+												</div>
+											</div>
+										</a>
+									</div>
+
+
+									<div class="clearfix"></div>
+
+								</div>
+								<!--  close div bas cont -->
+							</div>
+						</div>
+					</div>
+					<!--  end of card -->
+
+
+
+					<!--  start of card -->
+					<div class="col-sm-6">
+						<!-- Recent Items -->
+						<div class="card">
+
+
+							<div class="card-header">
+								<h2>
+									<i class="material-icons md-48">delete_forever</i> Delete<small></small>
+								</h2>
+							</div>
+							<div class='container' [attr.data-container-id]='"trash"'
+								[dragula]='"embracements-bag"'>
+								<div class="card-body m-t-0">
+
+									<!--  div based cont -->
+									<div class="listview">
+
+										<div>&nbsp;</div>
+
+										<div class="clearfix"></div>
+
+									</div>
+									<!--  close div bas cont -->
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!--  end of card -->
+
+
+
 				</div>
 				<!--  end of row container -->
 
-				
-				<div class='container' [attr.data-container-id]='"adopt"'
-					[dragula]='"embracements-bag"'>
-					<div *ngFor="#initiative of initiatives2[embracementEnum.adopt]"
-						[attr.data-embr-id]="initiative.id">{{initiative.title}}
-						{{initiative.description}}</div>
-				</div>
-				<div class='container' [attr.data-container-id]='"hold"'
-					[dragula]='"embracements-bag"'>
-					<div *ngFor="#initiative of initiatives2[embracementEnum.hold]"
-						[attr.data-embr-id]="initiative.id">{{initiative.title}}
-						{{initiative.description}}</div>
-				</div>
-				<!-- <div class='container' [attr.data-container-id]='"trial"' [dragula]='"embracements-bag"'>
-          <div  *ngFor="#initiative of filteredInitiatives(embracementEnum.trial)" [attr.data-embr-id]="initiative.id">{{initiative.title}}
-            {{initiative.description}}
-          </div>
-        </div>
-        <div class='container' [attr.data-container-id]='"adopt"' [dragula]='"embracements-bag"'>
-          <div *ngFor="#initiative of filteredInitiatives2[embracementEnum.adopt]"  [attr.data-embr-id]="initiative.id">{{initiative.title}}
-            {{initiative.description}}
-          </div>
-        </div>
-        <div class='container' [attr.data-container-id]='"hold"' [dragula]='"embracements-bag"'>
-         <div *ngFor="#initiative of filteredInitiatives(embracementEnum.hold)"  [attr.data-embr-id]="initiative.id">{{initiative.title}}
-            {{initiative.description}}
-          </div>
-        </div> -->
 
-				<div>
-					Drop here for deletion
-					<div class='container' [attr.data-container-id]='"trash"'
-						[dragula]='"embracements-bag"'></div>
-				</div>
+
+
 			</div>
 		</div>
 

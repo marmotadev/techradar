@@ -8,7 +8,8 @@
 }
 
 nav a {
-  color: #8F8F8F;
+  /* color: #8F8F8F; */
+  color: #777;
   font-size: 14px;
   font-weight: 500;
   line-height: 48px;
@@ -18,5 +19,5 @@ nav a {
 }
 
 nav a.router-link-active {
-  color: #106CC8;
+ /*  color: #106CC8; */
 }

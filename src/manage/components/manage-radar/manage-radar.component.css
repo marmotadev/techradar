@@ -1,0 +1,8 @@
+.block-header > h2 {
+    font-size: 35px;
+    color: #777;
+    margin: 0;
+    font-weight: 400;
+    text-transform: uppercase;
+    padding-bottom: 20px;
+}

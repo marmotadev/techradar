@@ -1,27 +1,80 @@
-<div>
-	<div class="radar-quadrant-navigation" id="radar">
-		<ul class="radar-quadrant-navigation__radar-quadrants">
-			<li class="radar-quadrant-navigation__quadrant"><a
-				class="techniques"
-				[class.selected]="isCategorySelected2(areasEnum.techniques)"
-				(click)="openCategory(areasEnum[areasEnum.techniques])"
-				nav-entry="techniques">Techniques</a></li>
-			<li class="radar-quadrant-navigation__quadrant"><a class="tools"
-				[class.selected]="isCategorySelected2(areasEnum.tools)"
-				(click)="openCategory(areasEnum[areasEnum.tools])" nav-entry="tools">Tools</a>
-			</li>
-			<li class="radar-quadrant-navigation__quadrant"><a
-				class="platforms"
-				[class.selected]="isCategorySelected2(areasEnum.platforms)"
-				(click)="openCategory(areasEnum[areasEnum.platforms])"
-				nav-entry="platforms">Platforms</a></li>
-			<li class="radar-quadrant-navigation__quadrant"><a
-				class="languages"
-				[class.selected]="isCategorySelected2(areasEnum.languagesAndFrameworks)"
-				(click)="openCategory(areasEnum[areasEnum.languagesAndFrameworks])"
-				nav-entry="languages-and-frameworks">Languages &amp;<br>Frameworks
-			</a></li>
-		</ul>
+<div class="row">
+	<div class="col-sm-6 col-md-3">
+		<a class="techniques"
+			[class.selected]="isCategorySelected2(areasEnum.techniques)"
+			(click)="openCategory(areasEnum[areasEnum.techniques])"
+			nav-entry="techniques"><div class="mini-charts-item bgm-cyan">
+				<div class="clearfix">
+					<div class="chart stats-bar" data-sparkline-bar="">
+						<canvas width="83" height="45"
+							style="display: inline-block; width: 83px; height: 45px; vertical-align: top;"></canvas>
+					</div>
+					<div class="count">
+						<h2>Techniques</h2>
+						<small>Methods, strategies and processes</small>
+					</div>
+				</div>
+			</div> </a>
+	</div>
+
+	<div class="col-sm-6 col-md-3">
+		<a class="tools"
+			[class.selected]="isCategorySelected2(areasEnum.tools)"
+			(click)="openCategory(areasEnum[areasEnum.tools])" nav-entry="tools">
+			<div class="mini-charts-item bgm-lightgreen">
+				<div class="clearfix">
+					<div class="chart stats-bar-2" data-sparkline-bar="">
+						<canvas width="83" height="45"
+							style="display: inline-block; width: 83px; height: 45px; vertical-align: top;"></canvas>
+					</div>
+					<div class="count">
+						<h2>Tools</h2>
+						<small>IDE's, modeling, testing, analysis, productivity
+							tools</small>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+
+	<div class="col-sm-6 col-md-3">
+		<a class="platforms"
+			[class.selected]="isCategorySelected2(areasEnum.platforms)"
+			(click)="openCategory(areasEnum[areasEnum.platforms])"
+			nav-entry="platforms">
+			<div class="mini-charts-item bgm-orange">
+				<div class="clearfix">
+					<div class="chart stats-line" data-sparkline-line="">
+						<canvas width="85" height="45"
+							style="display: inline-block; width: 85px; height: 45px; vertical-align: top;"></canvas>
+					</div>
+					<div class="count">
+						<h2>Platforms</h2>
+						<small>Environments on top of which we build systems</small>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+
+	<div class="col-sm-6 col-md-3">
+		<a class="languages"
+			[class.selected]="isCategorySelected2(areasEnum.languagesAndFrameworks)"
+			(click)="openCategory(areasEnum[areasEnum.languagesAndFrameworks])"
+			nav-entry="languages-and-frameworks">
+			<div class="mini-charts-item bgm-bluegray">
+				<div class="clearfix">
+					<div class="chart stats-line-2" data-sparkline-line="">
+						<canvas width="85" height="45"
+							style="display: inline-block; width: 85px; height: 45px; vertical-align: top;"></canvas>
+					</div>
+					<div class="count">
+						<h2>Languages & frameworks</h2>
+						<small>Main and supplementary languages, bigger scale frameworks</small>
+					</div>
+				</div>
+			</div>
+		</a>
 	</div>
 </div>
 

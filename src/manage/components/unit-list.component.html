@@ -1,9 +1,17 @@
-<div>
-	My radars: 
-	<div *ngFor="#radar of userRadars" class="col-1-4"
-		(click)="manageRadar(radar)">
-		<div class="">
-			<h4>{{radar.title}}</h4>
-		</div>
+<div class="radar-list-container">
+
+<div *ngFor="#radar of userRadars"
+	class="panel panel-color panel-primary" (click)="manageRadar(radar)">
+	<div class="panel-heading">
+		<h3 class="panel-title">{{radar.title}}</h3>
+		<p class="panel-sub-title font-13 text-muted">Click on title to
+			select</p>
 	</div>
+	<div class="panel-body">
+		<p>Belongs to group: {{radar.userGroup.title}}</p>
+	</div>
+	<div class="">
+		<h4></h4>
+	</div>
+</div>
 </div>

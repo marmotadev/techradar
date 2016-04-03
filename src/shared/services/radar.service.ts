@@ -39,6 +39,21 @@ export class RadarService {
     storeToken(token: string) {
         console.log('Storing token', token);
     }
+    updateTitle(radarId: number, title: string) {
+        let body = JSON.stringify({ radarId: radarId, title: title });
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        console.log('Trying to save(title)', body);
+        return this.http.post(this._serviceUrl + '/update-title', body, options)
+            //            .map(res => <Hero>res.json().data)
+            .map(res => {
+                console.log('we got response from service', res.json());
+                return res.json();
+            })
+            .catch(this.handleError)
+            .toPromise()
+            ;
+    }
     public moveInitiative(initiativeId: string, e: Embracement, aboveId?: number) {
         console.log('Moving initiative', initiativeId, ' to embracement level ', e, aboveId);
         let body = JSON.stringify({ blipId: initiativeId, level: e, aboveId: aboveId });

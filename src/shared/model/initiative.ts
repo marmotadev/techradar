@@ -13,6 +13,7 @@ export class Initiative {
     public isNew?: boolean,
     public area?: Areas,
     public order?: number,
-    public dateCreated?: Date) {}
+    public dateCreated?: Date,
+    public publicId?: string) {}
     
 }

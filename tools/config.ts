@@ -92,6 +92,7 @@ export const PROD_NPM_DEPENDENCIES: IDependency[] = normalizeDependencies([
 // Declare local files that needs to be injected
 export const APP_ASSETS: IDependency[] = [
   { src: `${ASSETS_SRC}/main.css`, inject: true },
+  { src: `${ASSETS_SRC}/exp.css`, inject: true },
   { src: `${APP_SRC}/lib/tooltipster/css/tooltipster.css`, inject: true}
 //  { src: `${APP_SRC}/lib/tooltipster/css/themes/tooltipster-default.css`, inject: true},
 //  { src: `${APP_SRC}/lib/tooltipster/css/themes/tooltipster-punk.css`, inject: true}

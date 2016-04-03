@@ -1,19 +1,23 @@
 <div *ngIf="radar">
-	<h2>{{radar.title}}</h2>
-	<div *ngIf="selectedArea !== null">
-		<a [routerLink]="['/RadarRouter/ViewRadar', {radarId: radarId, area: areasEnum[selectedArea]}]">View radar</a>
+	<h2 (click)="showEdit()">{{radar.title}}</h2>
+	public link: http://localhost:555/public/radar/{{radar.publicId}}
+	<div *ngIf="showTitleEditBox">
+		<input type="text" size="30" [(ngModel)]="radar.title" />
+		<button (click)="saveTitle()">Ok</button>
 	</div>
-	<div *ngIf="selectedArea === null">
-		<a [routerLink]="['/RadarRouter/ViewRadarAreas', {radarId: radarId}]">View radar areas</a>
+	<div *ngIf="selectedArea !== null">
+		<a
+			[routerLink]="['/RadarRouter/ViewRadar', {radarId: radarId, area: areasEnum[selectedArea]}]">View
+			radar</a>
 	</div>
 	<select-area (onSelected)="onAreaSelected($event)"></select-area>
 
 	<div *ngIf="selectedArea !== null">
 		<!-- <h2>Area: {{selectedArea}}</h2> -->
 		<div *ngIf="showAddNew">
-			<!--<div *ngFor="#cat of-->
 			<item-form (onCancel)="closeAddNewForm()"
-				(onAdd)="initiativeAdded($event)" [area]="selectedArea" [radar]="radar"></item-form>
+				(onAdd)="initiativeAdded($event)" [area]="selectedArea"
+				[radar]="radar"></item-form>
 
 		</div>
 		<div *ngIf="!showAddNew">
@@ -22,19 +26,112 @@
 		</div>
 		<div>
 			<div class='wrapper' id="dragulaWrapper">
-				<div class='container' [attr.data-container-id]='"assess"'
-					[dragula]='"embracements-bag"'>
-					<div *ngFor="#initiative of initiatives2[embracementEnum.assess]"
-						[attr.data-embr-id]="initiative.id">{{initiative.title}}
-						{{initiative.description}}</div>
+				<div class="row">
+					<!--  start of card -->
+					<div class="col-sm-6">
+						<!-- Recent Items -->
+						<div class="card">
+							<div class="card-header">
+								<h2>
+									Assess<small>The Assess Ring are things that you should
+										look at closely, but not necessarily trial yet - unless you
+										think they would be a particularly good fit for you. Typically
+										blips in the assess ring are things that we are currently
+										trialling, on our projects.</small>
+								</h2>
+								<ul class="actions">
+									<li class="dropdown" uib-dropdown=""><a href=""
+										uib-dropdown-toggle="" class="dropdown-toggle"
+										aria-haspopup="true" aria-expanded="false"> <i
+											class="zmdi zmdi-more-vert"></i>
+									</a>
 
-				</div>
-				<div class='container' [attr.data-container-id]='"trial"'
+										<ul class="dropdown-menu dropdown-menu-right">
+											<li><a href="">Refresh</a></li>
+											<li><a href="">Settings</a></li>
+											<li><a href="">Other Settings</a></li>
+										</ul></li>
+								</ul>
+							</div>
+
+							<div class="card-body m-t-0">
+
+								<!--  div based cont -->
+								<div class="listview">
+									<div class='container' [attr.data-container-id]='"assess"'
+										[dragula]='"embracements-bag"'>
+
+										<!-- ngRepeat: w in rpctrl.rpResult.list -->
+										<a class="lv-item" href=""
+											*ngFor="#initiative of initiatives2[embracementEnum.assess]"
+											[attr.data-embr-id]="initiative.id">
+											<div class="media">
+												<div class="pull-left">
+													<!-- <img class="lv-img-sm" data-ng-src="img/profile-pics/1.jpg"
+														alt="" src="img/profile-pics/1.jpg"> -->
+													<i class="material-icons md-36">donut_large</i>
+
+												</div>
+												<div class="media-body">
+													<div class="lv-title ng-binding">{{initiative.title}}
+													</div>
+													<small class="lv-small ng-binding">{{initiative.description}}</small>
+												</div>
+											</div>
+										</a>
+									</div>
+
+
+									<div class="clearfix"></div>
+
+								</div>
+								<!--  close div bas cont -->
+							</div>
+							<div class="card-header">
+								<h2>
+									Trial<small></small>
+								</h2>
+							</div>
+							<div class="card-body m-t-0">
+
+								<!--  div based cont -->
+								<div class="listview">
+				
+									<div class='container' [attr.data-container-id]='"trial"'
 					[dragula]='"embracements-bag"'>
-					<div *ngFor="#initiative of initiatives2[embracementEnum.trial]"
-						[attr.data-embr-id]="initiative.id">{{initiative.title}}
-						{{initiative.description}}</div>
+
+										<!-- ngRepeat: w in rpctrl.rpResult.list -->
+										<a class="lv-item" href=""
+											*ngFor="#initiative of initiatives2[embracementEnum.trial]"
+											[attr.data-embr-id]="initiative.id">
+											<div class="media">
+												<div class="pull-left">
+													<!-- <img class="lv-img-sm" data-ng-src="img/profile-pics/1.jpg"
+														alt="" src="img/profile-pics/1.jpg"> -->
+													<i class="material-icons md-36">donut_large</i>
+
+												</div>
+												<div class="media-body">
+													<div class="lv-title ng-binding">{{initiative.title}}
+													</div>
+													<small class="lv-small ng-binding">{{initiative.description}}</small>
+												</div>
+											</div>
+										</a>
+									</div>
+
+
+									<div class="clearfix"></div>
+
+								</div>
+								<!--  close div bas cont -->
+							</div>
+						</div>
+					</div>
 				</div>
+				<!--  end of row container -->
+
+				
 				<div class='container' [attr.data-container-id]='"adopt"'
 					[dragula]='"embracements-bag"'>
 					<div *ngFor="#initiative of initiatives2[embracementEnum.adopt]"
@@ -72,5 +169,6 @@
 		</div>
 
 	</div>
+
 </div>
 

@@ -134,7 +134,24 @@ public class RadarDataViewController {
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
 		}
 	}
-
+	@RequestMapping(value = "/radar/update-title", method = RequestMethod.POST, consumes = "application/json")
+	public void updateTitle(@RequestBody UpdateTitleRequest req, HttpServletResponse response) throws IOException {
+		logger.info("Request to save title {}", req);
+		try {
+			if (req == null || req.getTitle() == null || req.getRadarId() == null)
+				throw new IllegalArgumentException();
+			Radar radar = radarRepo.getById(req.getRadarId());
+			radar.setTitle(req.getTitle());
+			radarRepo.save(radar);
+			response.sendError(HttpServletResponse.SC_ACCEPTED);
+		} catch (IllegalArgumentException e) {
+			// logger.error("Exception", e);
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+		} catch (Exception e) {
+			logger.error("Exception", e);
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
+		}
+	}
 	@RequestMapping(value = "/radar/move", method = RequestMethod.POST, consumes = "application/json")
 	public void move(@RequestBody MoveBlipRequest blipReq, HttpServletResponse response) throws IOException {
 		logger.info("Moving blip {}", blipReq);

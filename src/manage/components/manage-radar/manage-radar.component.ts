@@ -18,10 +18,8 @@ import {SelectAreaComponent} from '../../../radar/components/select-area/select-
 
 @Component({
     selector: 'manage-radar',
-    templateUrl: '/manage/components/manage-radar/manage-radar.component.html',
-    //    styleUrls: ['/manage/components/unit-detail/unit-detail.component.css'],
-    //  inputs: ['unit', 'showAddNew'],
-    //  directives: [ItemFormComponent],
+    templateUrl: './manage/components/manage-radar/manage-radar.component.html',
+    styleUrls: ['./manage/components/manage-radar/manage-radar.component.css'],
     directives: [ItemFormComponent, Dragula, EmbracementComponent, SelectAreaComponent, RouterLink],
     viewProviders: [DragulaService]
 })
@@ -32,7 +30,7 @@ export class ManageRadarComponent implements OnInit {
 
     radar: Radar;
     radarId: number;
-
+    showTitleEditBox: boolean = false;
 
 
     @Input() unit: OrganizationUnit;
@@ -68,6 +66,12 @@ export class ManageRadarComponent implements OnInit {
             this.onOut(value.slice(1));
         });
     }
+    public showEdit() {
+        this.showTitleEditBox = true;
+    }
+    public saveTitle() {
+        this._radarService.updateTitle(this.radarId, this.radar.title).then (r => this.showTitleEditBox = false);
+    }
     loadRadarData() {
         return this._radarService.getRadar(this.radarId).then(r => this.radar = r);
     }
@@ -75,7 +79,7 @@ export class ManageRadarComponent implements OnInit {
         this.radarId = +this._routeParams.get('id');
 
         this.loadRadarData().then(r => {
-//            console.log('reloaded');
+            //            console.log('reloaded');
         });
 
         //        this.selectedArea = this._routeParams.get('category');
@@ -129,7 +133,7 @@ export class ManageRadarComponent implements OnInit {
         }
     }
     reloadInitiatives() {
-        let area:Areas = this.selectedArea;
+        let area: Areas = this.selectedArea;
         console.log('Will reload initiatives', area);
         this.loadRadarData().then(r => {
             this.initiatives = r.blips;

@@ -8,7 +8,6 @@ import {NavbarComponent} from './navbar.component';
 import {ToolbarComponent} from './toolbar.component';
 import {ManageComponent} from '../../manage/components/manage.component';
 import {ViewRadarComponent} from '../../radar/view-radar.component';
-import {NameListService} from '../../shared/services/name-list.service';
 import {ManageService} from '../../shared/services/manage.service';
 import {RadarService} from '../../shared/services/radar.service';
 import {RadarComponent3} from '../../radar/components/radar3.component';
@@ -18,7 +17,6 @@ import {RadarRouterComponent} from '../../radar/radar-router.component';
 
 @Component({
   selector: 'sd-app',
-  viewProviders: [NameListService],
   moduleId: module.id,
   templateUrl: './app.component.html',
   encapsulation: ViewEncapsulation.None,

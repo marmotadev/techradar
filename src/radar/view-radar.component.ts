@@ -3,7 +3,6 @@ import {Component, OnInit} from 'angular2/core';
 import {RouteParams, Router, RouteConfig} from 'angular2/router';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
 
-import {NameListService} from '../shared/services/name-list.service';
 //import {OrganizationUnit} from '../shared/model/organization-unit';
 import {ManageService} from '../shared/services/manage.service';
 import {RadarService} from '../shared/services/radar.service';
@@ -42,7 +41,7 @@ export class ViewRadarComponent implements OnInit {
         this._router.navigate(['ViewRadar', { area: event, radarId: this.radarId }]);
     }
 
-    constructor(public nameListService: NameListService, private _radarService: RadarService,
+    constructor(private _radarService: RadarService,
         private _heroService: ManageService, private _router: Router,
         private _routeParams: RouteParams) {
         this.radarId = Number(this._routeParams.get('radarId'));

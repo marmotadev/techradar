@@ -42,23 +42,6 @@ export class UnitDetailComponent implements OnInit {
         this.initiatives2[1] = [];
         this.initiatives2[2] = [];
         this.initiatives2[3] = [];
-
-        dragulaService.drag.subscribe((value1) => {
-            console.log(`drag: ${value1[0]}`);
-            this.onDrag(value1.slice(1));
-        });
-        dragulaService.drop.subscribe((value) => {
-            console.log(`drop: ${value[0]}`);
-            this.onDrop(value.slice(1));
-        });
-        dragulaService.over.subscribe((value) => {
-            console.log(`over: ${value[0]}`);
-            this.onOver(value.slice(1));
-        });
-        dragulaService.out.subscribe((value) => {
-            console.log(`out: ${value[0]}`);
-            this.onOut(value.slice(1));
-        });
     }
 
     public showAddNewForm() {
@@ -92,30 +75,13 @@ export class UnitDetailComponent implements OnInit {
             return [];
         }
     }
-    reloadInitiatives(category: string) {
-
-
-        console.log('Will reload initiatives');
-        this._radarService.getInitiatives(Areas[category]).then(initiatives => {
-            this.initiatives = initiatives;
-            this.initiatives2[Embracement.adopt] = this.filteredInitiatives(Embracement.adopt, initiatives);
-            this.initiatives2[Embracement.assess] = this.filteredInitiatives(Embracement.assess, initiatives);
-            this.initiatives2[Embracement.trial] = this.filteredInitiatives(Embracement.trial, initiatives);
-            this.initiatives2[Embracement.hold] = this.filteredInitiatives(Embracement.hold, initiatives);
-            console.log('initiatives reloaded', this.initiatives);
-        });
-    }
+    
 
     ngOnInit() {
         let id = +this._routeParams.get('id');
         this.category = this._routeParams.get('category');
         this.selectedArea = Areas[this.category];
         console.log('current area:', this.selectedArea);
-
-        if (this.category !== 'undefined' && this.category !== null)
-            this.reloadInitiatives(this.category);
-        this._heroService.getUnit(id).then(u => this.unit = u);
-
     }
     openCategory(id: number, areaStr: string) {
         this._router.navigate(['ItemsInCategoryDetail', { id: this.unit.id, category: areaStr }]);
@@ -133,68 +99,6 @@ export class UnitDetailComponent implements OnInit {
     isCategorySelected2(c: Areas): boolean {
         return !this.isCategorySelected() || this.isCategorySelected() && this.selectedArea === c;
     }
-    goBack() {
-        window.history.back();
-    }
-    closeAddNewForm() {
-        console.log('Parent component closes form');
-        this.showAddNew = false;
-    }
-    initiativeAdded(event) {
-        console.log('initiativeAdded(): Got event:', event);
-        this.showAddNew = false;
-        this.reloadInitiatives(this.category);
-    }
-    initiativeDeleted(event) {
-        this.reloadInitiatives(this.category);
-    }
-    // drag & drop callbacks
-    private onDrag(args) {
-        //      let [e, el] = args;
-        // do something
-    }
-
-    private onDrop(args) {
-        let [e, target, source, above] = args;
-        //        e = 0;
-        //        source = null;
-        console.log('target details', target);
-        console.log('Shit got dropped:', args[0].getAttribute('data-embr-id'), target.getAttribute('data-container-id'));
-
-        if (target.getAttribute('data-container-id') === 'trash') {
-            let id = args[0].getAttribute('data-embr-id');
-            console.log('deleting shit');
-            this._radarService.deleteBlip(id)
-                .subscribe(
-                data => {
-                    console.log('data', data);
-                    this.initiativeDeleted(data);
-                },
-                err => console.log('err', err),
-                () => console.log('say what')
-                );
-            //                .then (r => console.log('deleted',id));
-        } else {
-            console.log('dump drop data', args);
-
-            var embracementId: string = target.getAttribute('data-container-id');
-            var embr: Embracement = Embracement[embracementId];
-            this._radarService.moveInitiative(args[0].getAttribute('data-embr-id'),
-                embr,
-                above ? above.getAttribute('data-embr-id') : null);
-        }
-    }
-
-    private onOver(args) {
-        //      let [e, el, container] = args;
-        // do something
-    }
-
-    private onOut(args) {
-        //      let [e, el, container] = args;
-        // do something
-    }
-    ///
 }
 
 

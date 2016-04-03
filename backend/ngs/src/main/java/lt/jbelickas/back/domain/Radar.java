@@ -21,10 +21,11 @@ public class Radar {
 	@ManyToOne
 	private RadarGroup userGroup;
 	private String userLogin;
+	private String publicId;
 
-    @JsonBackReference
+	@JsonBackReference
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE,
-			CascadeType.DETACH }, mappedBy="radar")
+			CascadeType.DETACH }, mappedBy = "radar")
 	private List<Blip> blips;
 
 	public Long getId() {
@@ -67,10 +68,17 @@ public class Radar {
 		this.userGroup = userGroup;
 	}
 
+	public String getPublicId() {
+		return publicId;
+	}
+
+	public void setPublicId(String publicId) {
+		this.publicId = publicId;
+	}
+
 	@Override
 	public String toString() {
 		return "Radar [id=" + id + ", title=" + title + ", userGroup=" + userGroup + ", userLogin=" + userLogin
-				+ ", blips=" + blips + "]";
+				+ ", publicId=" + publicId + ", blips=" + blips + "]";
 	}
-
 }
